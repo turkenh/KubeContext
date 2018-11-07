@@ -40,6 +40,10 @@ clusters:
     insecure-skip-tls-verify: true
     server: https://localhost:6443
   name: docker-for-desktop-cluster_imported
+- cluster:
+    certificate-authority-data: 88v4sbhSjUB1E4NDHB58HmPVRqpidZAFdQyQayhLRvVTtmkjOEGJi9Qbj13lb27BAjiuC9CQSSUgZfQCyREssWZVNRGYWaQug2ULaZU1MQJMfindUe4NlFV4QkcIlJnr1xbHdoDYhH5cg6M8todUZrLCHQ6kwH5VAWxz4Crehm4Q6Cprf31R7Ych9oLNOwq5G86Ksh4YH2IpkHqfnWOXoDRI1z5UoMsMTM8LpTdpy3RXWDCQWC0QvRnMiqwxoJunSCgwhUl9vkyJRREy9XekVgXyHegpUwVEAuuXIEw6LHYXOrUHnuJdZZYuSxm62g7PCcUkqhTCMFt0mvT5apJ0oPxtjCEElxfsbJ09q2zYJUJo1i5pgk1sepMcHjo4cKfCGJdkayAmKLCrYLCE1mROCq5LWDOVPbPbzOyEp8CsToW5ozHW9xrWmSD27KQSa5LEMZYLK2wL7EUOSdARCJsvaYRvGCiGciizhaP1aI9dN1BE7oeMAPW6lIIuXNtG13H3VBIyYd3djVP7ZoANYUIj27mpnP78MgOu8tmrpepg3HRvQ2f9UURgPhuMzwaA2TWYe2E5vox3w9OsfgDpDvMERkrin2lhbCG4A0A067k5ZRSUtvhVCfZGd85d8a8qvXKOiFqjoaJ8bSgM7wRJz8fEU3VuQPuVVAikWL7Yt1k0vfgalFS0RsDm1D7aeoIgKGX1q9eflUgsUgOJjFcTYjMB6ZgqJAHuGJ3UgN6lqH7DMZZ8DBWBDZiHmk7QtPRVatrFOh8DiY7MjQLLCilqtBOoHCBDfSdSGNtuvf9Z6MDZfJoydmm1N9T0bhoiBqS87prW5zJtd4uevGV9YbuBU1NZDhjBuYEfuYmzppqWPWjyIZJ1UpETF7QT1QCD5tydBZos9FlaeHNM9wS9ZcKAosBGDFj8fWk3JwsVKkqmZoAO3V54TX8fEBqk7ZJCn4yb287o3IxvwDfW21nirsgu6vC8Crys2qkArdnuq73eaEQSXtJDQH7LguWIVrQGB3KRIBYKvz9P3rkDPlAPJETg8w5gokd0BWU75v4vWqvv85pnMBMKMO1VkhJsGYOiURwsuvZRTGgxgOgMuIphDlrnkLp5dhBnPZhSiJYt2XYl22CRtQNl1NvNVRItmn0g1A5RpGKqT7tWfn2PMzMBTLtx5typmX94A4g0ZscaWWrGQQCwYlLHuMfFIu2EpXmo1yXOCq9aSRS2Xgk2XKscuNloO8NVWPLnAM2zHAzb4cLAyrt9LjWO1uQ6kOQwWf7Jpv9cud947o91XRWFVgzPLtq6IAm36mhg23ewHDn7BPnrL5GvDi6xnjDofzLyQsBHzqnFxiI2CHs89fF132XQN73JtUfkRYm1E8PcFpfMaZov6TyXnX9XiQ8HeAs30czIDc5dcApsj2IzRmxH80lhqeZxvvauBVph8VE8v2K7wDQT9fF6WuZxrQiu0NVwty38b0xEPSC9fl7OMCOPnhynhBT6Hkzp
+    server: https://987654321.test.us-east-1.eks.amazonaws.com
+  name: arn:aws:eks:us-east-1:987654321:cluster/test-cluster_imported_20181107_82087
 contexts:
 - context:
     cluster: docker-for-desktop-cluster
@@ -77,6 +81,10 @@ contexts:
     cluster: test-cluster
     user: gke_admin
   name: test-cluster
+- context:
+    cluster: arn:aws:eks:us-east-1:987654321:cluster/test-cluster_imported_20181107_82087
+    user: arn:aws:eks:us-east-1:987654321:cluster/test-cluster_imported_20181107_82087
+  name: arn:aws:eks:us-east-1:987654321:cluster/test-cluster_imported_20181107_82087
 current-context: docker-for-desktop
 kind: Config
 preferences: {}
@@ -93,11 +101,11 @@ users:
   user:
     auth-provider:
       config:
-        expiry-key: '{.credential.token_expiry}'
-        cmd-path: /Users/testuser/Workspace/gcloud/google-cloud-sdk/bin/gcloud
-        cmd-args: config config-helper --format=json
         token-key: '{.credential.access_token}'
+        cmd-args: config config-helper --format=json
         access-token: ya29.RRefgh-Sdpo5-uvYfs8rpIpzMipMyIcDB1IbWF90wua0NFsadfads435t3VC33MhvG2NhZEUhy1Uu2d3OP5MlIMcfL2EwVeZasdfas4355tcsc
+        cmd-path: /Users/testuser/Workspace/gcloud/google-cloud-sdk/bin/gcloud
+        expiry-key: '{.credential.token_expiry}'
       name: gcp
 - name: minikube
   user:
@@ -111,3 +119,12 @@ users:
   user:
     password: DSFRW3242asdf
     username: admin
+- name: arn:aws:eks:us-east-1:987654321:cluster/test-cluster_imported_20181107_82087
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - token
+      - -i
+      - test-cluster
+      command: aws-iam-authenticator
