@@ -148,10 +148,9 @@ struct AuthProviderConfig: Codable {
 
 struct ExecConfig: Codable {
     var APIVersion: String?
-    var Args: [String]
+    var Args: [String]?
     var Command: String
-    var Env: [ExecEnvVar]
-
+    var Env: [ExecEnvVar]?
     
     private enum CodingKeys : String, CodingKey {
         case APIVersion="apiVersion"
