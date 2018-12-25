@@ -32,9 +32,7 @@ class Kubernetes {
     }
     
     func saveConfig(config: Config) throws {
-        let encoder = YAMLEncoder()
-        let configContent = try encoder.encode(config)
-        try configContent.write(to: kubeconfigFileUrl!, atomically: false, encoding: .utf8)
+        try saveConfigToFile(config: config, file: kubeconfigFileUrl)
     }
     
     func getConfig() throws -> Config? {

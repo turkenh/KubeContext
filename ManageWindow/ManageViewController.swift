@@ -293,10 +293,59 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             addNewContext()
         case 1:
             removeCurrentContext()
+        case 2:
+            exportSelectedContext()
         default:
             NSLog("Unknown segment in bottom controls")
         }
         
+    }
+    
+    func exportSelectedContext() {
+        var toExport = Config()
+    
+        let ctx = config.Contexts[activeRowIndex]
+        let clusters = config.Clusters
+        
+        var cluster: ClusterElement!
+        var user: AuthInfoElement!
+        
+        for c in clusters {
+            if ctx.Context.Cluster == c.Name {
+                cluster = c
+                break
+            }
+        }
+        
+        let users = config.AuthInfos
+        for u in users {
+            if ctx.Context.AuthInfo == u.Name {
+                user = u
+                break
+            }
+        }
+        
+        toExport.Contexts.append(config.Contexts[activeRowIndex])
+        toExport.CurrentContext = config.Contexts[activeRowIndex].Name
+        toExport.Clusters.append(cluster)
+        toExport.AuthInfos.append(user)
+        
+        let configToExportFileUrl = saveFolderSelection()
+        if configToExportFileUrl == nil {
+            NSLog("Could not export selected context\n Failed to get filepath! (User cancelled?)")
+            return
+        }
+        do {
+            try saveConfigToFile(config: toExport, file: configToExportFileUrl)
+        } catch {
+            alertUserWithWarning(message: "Could not export selected context\n \(error)")
+        }
+        
+        let alert = NSAlert()
+        alert.icon = NSImage.init(named: NSImage.infoName)
+        alert.messageText = "Context \"" + config.Contexts[activeRowIndex].Name + "\" exported successfully!"
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
     
     func addNewContext() {

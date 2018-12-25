@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import os
+import Yams
 
 func getOrigKubeconfigFileUrl() -> URL? {
     let fileManager = FileManager.default
@@ -36,6 +37,29 @@ func openFolderSelection() -> URL?
     //let launcherLogPathWithTilde = "~/.kube" as NSString
     //let expandedLauncherLogPath = launcherLogPathWithTilde.expandingTildeInPath
     //dialog.directoryURL = NSURL.fileURL(withPath: expandedLauncherLogPath, isDirectory: true)
+    
+    if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+        let result = dialog.url // Pathname of the file
+        
+        if (result != nil) {
+            let path = result!.path
+            print(path)
+        }
+        return result
+    } else {
+        // User clicked on "Cancel"
+        return nil
+    }
+}
+
+func saveFolderSelection() -> URL?
+{
+    let dialog = NSSavePanel();
+    
+    dialog.title                   = "Export kubeconfig file";
+    dialog.showsResizeIndicator    = true;
+    dialog.showsHiddenFiles        = true;
+    dialog.canCreateDirectories    = true;
     
     if (dialog.runModal() == NSApplication.ModalResponse.OK) {
         let result = dialog.url // Pathname of the file
@@ -225,4 +249,10 @@ extension String {
         
         return newText
     }
+}
+
+func saveConfigToFile(config: Config, file:URL?) throws {
+    let encoder = YAMLEncoder()
+    let configContent = try encoder.encode(config)
+    try configContent.write(to: file!, atomically: false, encoding: .utf8)
 }

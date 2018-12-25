@@ -28,6 +28,15 @@ struct Config: Codable {
         case Preferences="preferences"
         case AuthInfos="users"
     }
+    
+    init(){
+        self.APIVersion = "v1"
+        self.Kind = "Config"
+        self.Contexts = []
+        self.Clusters = []
+        self.AuthInfos = []
+        self.CurrentContext = ""
+    }
 }
 
 struct Preferences: Codable {

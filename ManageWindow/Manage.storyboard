@@ -229,21 +229,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvR-NI-uhk">
-                                <rect key="frame" x="20" y="64" width="193" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="smallSquare" trackingMode="momentary" id="axd-fg-uWx">
-                                    <font key="font" metaFont="system"/>
-                                    <segments>
-                                        <segment alignment="left" image="NSAddTemplate"/>
-                                        <segment image="NSRemoveTemplate" tag="1"/>
-                                        <segment width="135" enabled="NO"/>
-                                    </segments>
-                                </segmentedCell>
-                                <connections>
-                                    <action selector="bottomControlAction:" target="TZX-CG-v7T" id="QfP-YO-Lcs"/>
-                                </connections>
-                            </segmentedControl>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H14-SS-Seo">
                                 <rect key="frame" x="14" y="17" width="153" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -284,6 +269,24 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvR-NI-uhk">
+                                <rect key="frame" x="20" y="64" width="193" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="smallSquare" trackingMode="momentary" id="axd-fg-uWx">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment alignment="left" image="NSAddTemplate"/>
+                                        <segment image="NSRemoveTemplate" tag="1"/>
+                                        <segment image="export" width="28"/>
+                                        <segment width="106">
+                                            <nil key="label"/>
+                                        </segment>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="bottomControlAction:" target="TZX-CG-v7T" id="QfP-YO-Lcs"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                     </view>
                     <connections>
@@ -307,5 +310,6 @@
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="export" width="30" height="40"/>
     </resources>
 </document>
