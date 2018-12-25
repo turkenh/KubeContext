@@ -262,6 +262,30 @@ class KubeContextUITests: XCTestCase {
         XCTAssert(!contextManagementWindow.tables.staticTexts["new-kube"].exists)
     }
     
+    func testRemoveContextWithCleanup() {
+        print("ok")
+        
+        let app = XCUIApplication()
+        let statusItem = app.children(matching: .menuBar).element(boundBy: 1).children(matching: .statusItem).element(boundBy: 0)
+        statusItem.click()
+        
+        let manageContextsMenuItem = app.menuBars/*@START_MENU_TOKEN@*/.menuItems["Manage Contexts"]/*[[".statusItems",".menus.menuItems[\"Manage Contexts\"]",".menuItems[\"Manage Contexts\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+        manageContextsMenuItem.click()
+        
+        let contextManagementWindow = app.windows["Context Management"]
+        contextManagementWindow.tables.staticTexts["test-cluster"].click()
+        contextManagementWindow/*@START_MENU_TOKEN@*/.buttons["remove"]/*[[".groups.buttons[\"remove\"]",".buttons[\"remove\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.click()
+        
+        let applyButton = contextManagementWindow.buttons["Apply"]
+        applyButton.click()
+        
+        let expectedContent = try? String(contentsOfFile: "/Users/hasanturken/Workspace/KubeContext/KubeContextUITests/TestData/ui-test-config-cleaned.yaml", encoding: .utf8)
+        
+        let currentContent = try? String(contentsOfFile: "/Users/hasanturken/Library/Containers/com.ht.kubecontext/Data/Documents/TempData/ui-test-config.yaml", encoding: .utf8)
+        
+        XCTAssertEqual(expectedContent!, currentContent!)
+    }
+    
     func testImportFromMenu() {
         print("ok")
         
@@ -385,7 +409,7 @@ class KubeContextUITests: XCTestCase {
         managementPopclusterPopUpButton.click()
         contextManagementWindow/*@START_MENU_TOKEN@*/.menuItems["some-other-cluster"]/*[[".groups",".popUpButtons[\"management-popcluster\"]",".menus.menuItems[\"some-other-cluster\"]",".menuItems[\"some-other-cluster\"]"],[[[-1,3],[-1,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
         contextManagementWindow/*@START_MENU_TOKEN@*/.popUpButtons["management-popuser"]/*[[".groups.popUpButtons[\"management-popuser\"]",".popUpButtons[\"management-popuser\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.click()
-        contextManagementWindow/*@START_MENU_TOKEN@*/.menuItems["gke_admin"]/*[[".groups",".popUpButtons[\"management-popuser\"]",".menus.menuItems[\"gke_admin\"]",".menuItems[\"gke_admin\"]"],[[[-1,3],[-1,2],[-1,1,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.click()
+        contextManagementWindow.menuItems["real-admin"].click()
         applyButton.click()
         contextManagementWindow/*@START_MENU_TOKEN@*/.buttons["add"]/*[[".groups.buttons[\"add\"]",".buttons[\"add\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.click()
         applyButton.click()
