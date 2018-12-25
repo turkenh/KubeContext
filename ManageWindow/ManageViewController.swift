@@ -205,7 +205,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         } else if(resp==NSApplication.ModalResponse.alertSecondButtonReturn){
             return false
         } else if(resp==NSApplication.ModalResponse.alertThirdButtonReturn){
-           return true
+            return true
         }
         return true
     }
@@ -217,7 +217,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         alert.addButton(withTitle: "OK")
         alert.beginSheetModal(for: self.view.window!)
     }
-        
+    
     @IBAction func applyClicked(_ sender: Any) {
         if config == nil {
             NSLog("Error: Apply clicked but config not loaded")
@@ -314,6 +314,35 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         revertButton.isEnabled = true
     }
     
+    func removeUnusedClustersAndUsers(){
+        var usedAuthInfos: [AuthInfoElement] = []
+        var usedClusters: [ClusterElement] = []
+        
+        let contexts = config.Contexts
+        let clusters = config.Clusters
+        for c in clusters {
+            for ctx in contexts {
+                if ctx.Context.Cluster == c.Name {
+                    usedClusters.append(c)
+                    break
+                }
+            }
+        }
+        
+        let users = config.AuthInfos
+        for u in users {
+            for ctx in contexts {
+                if ctx.Context.AuthInfo == u.Name {
+                    usedAuthInfos.append(u)
+                    break
+                }
+            }
+        }
+        
+        config.Clusters = usedClusters
+        config.AuthInfos = usedAuthInfos
+    }
+    
     func removeCurrentContext() {
         guard let nofContexts = contexts?.count else {
             NSLog("Could not get nof contexts")
@@ -328,6 +357,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         let contextToDelete = config?.Contexts[activeRowIndex].Name
         
         config?.Contexts.remove(at: activeRowIndex)
+        removeUnusedClustersAndUsers()
         
         var latestConfig:Config!
         do {
