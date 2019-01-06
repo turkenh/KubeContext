@@ -9,16 +9,89 @@
 import Foundation
 import Yams
 import os
+import EonilFSEvents
+import Cocoa
+
+let contextChangedCallback: (EonilFSEventsEvent) -> () = {_ in
+    statusBarButton.imagePosition = NSControl.ImagePosition.imageLeft
+    if k8s.kubeconfig != nil {
+        do {
+            let currContext: String = try (k8s.getConfig()?.CurrentContext)!
+            statusBarButton.title = currContext.truncated(limit: 20, position: String.TruncationPosition.middle, leader: "...")
+        } catch {
+            NSLog("Error occured while trying to set statusBarButton in contextChangedCallback %@", error as NSError) 
+        }
+    }
+    //print("event: ", e)
+    //button.imageHugsTitle = false
+    //button.contentTintColor = NSColor.red
+    //button.action = #selector(constructMenu(_:))
+}
 
 class Kubernetes {
-    var kubeconfigFileUrl:URL?
+    let fileManager = FileManager.default
+    var kubeconfig:URL?
+    var watcher: EonilFSEventStream!
 
-    init(configFile: URL) {
-        kubeconfigFileUrl = configFile
+    init() {
+        let f = loadBookmarks()
+        if f == nil {
+            return
+        }
+        if kubeconfig == nil || kubeconfig != f {
+            kubeconfig = f
+            initWatcher()
+        }
+    }
+    
+    func setKubeconfig(configFile: URL?) throws {
+        if configFile == nil {
+            return
+        }
+        let _ = try loadConfig(url: configFile!)
+        
+        if kubeconfig == nil || kubeconfig != configFile {
+            kubeconfig = configFile
+            initWatcher()
+        }
+        backupKubeconfig()
+        storeFolderInBookmark(url: configFile!)
+        saveBookmarksData()
+    }
+    
+    func initWatcher(){
+        if watcher != nil {
+            watcher.stop()
+            watcher.invalidate()
+        }
+        do {
+            watcher = try EonilFSEventStream(pathsToWatch: [(kubeconfig?.path)!],
+                                             sinceWhen: .now,
+                                             latency: 0,
+                                             flags: [.noDefer, .fileEvents],
+                                             handler: contextChangedCallback)
+            watcher!.setDispatchQueue(DispatchQueue.main)
+            try watcher!.start()
+        } catch {
+            print("Error while starting watcher: %s", error)
+        }
+    }
+
+    
+    func backupKubeconfig() {
+        let origConfigURL = getOrigKubeconfigFileUrl()
+        do {
+            if fileManager.isReadableFile(atPath: (origConfigURL?.path)!) {
+                try fileManager.removeItem(at: origConfigURL!)
+            }
+            try fileManager.copyItem(at: kubeconfig!, to: origConfigURL!)
+        } catch {
+            NSLog("Error: could not backup original kubeconfig file: \(error)")
+        }
     }
     
     func getConfigFilePath () -> String {
-        return (kubeconfigFileUrl?.path)!
+        return (kubeconfig?.path)!
     }
     
     private func loadConfig(url: URL) throws -> Config? {
@@ -32,11 +105,11 @@ class Kubernetes {
     }
     
     func saveConfig(config: Config) throws {
-        try saveConfigToFile(config: config, file: kubeconfigFileUrl)
+        try saveConfigToFile(config: config, file: kubeconfig)
     }
     
     func getConfig() throws -> Config? {
-        return try loadConfig(url: kubeconfigFileUrl!)
+        return try loadConfig(url: kubeconfig!)
     }
     
     func mergeKubeconfigIntoConfig(configToImportFileUrl: URL, mainConfig: Config) throws -> Config {
@@ -75,7 +148,7 @@ class Kubernetes {
     }
         
     func importConfig(configToImportFileUrl: URL) throws {
-        let mainConfig = try loadConfig(url: kubeconfigFileUrl!)
+        let mainConfig = try loadConfig(url: kubeconfig!)
         
         let mergedConfig = try mergeKubeconfigIntoConfig(configToImportFileUrl: configToImportFileUrl, mainConfig: mainConfig!)
         
@@ -83,8 +156,20 @@ class Kubernetes {
     }
     
     func useContext(name: String) throws {
-        var kubeconfig = try loadConfig(url: kubeconfigFileUrl!)
-        kubeconfig?.CurrentContext = name
-        try saveConfig(config: kubeconfig!)
+        var config = try loadConfig(url: kubeconfig!)
+        config?.CurrentContext = name
+        try saveConfig(config: config!)
+    }
+}
+
+func getOrigKubeconfigFileUrl() -> URL? {
+    let fileManager = FileManager.default
+    do {
+        let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+        let origConfigURL = documentDirectory.appendingPathComponent("kubeconfig.orig")
+        return origConfigURL
+    } catch {
+        NSLog("Error: could not get url of original kubeconfig file: \(error)")
+        return nil
     }
 }

@@ -12,17 +12,8 @@ import os
 import Yams
 import EonilFSEvents
 
-func getOrigKubeconfigFileUrl() -> URL? {
-    let fileManager = FileManager.default
-    do {
-        let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-        let origConfigURL = documentDirectory.appendingPathComponent("kubeconfig.orig")
-        return origConfigURL
-    } catch {
-        NSLog("Error: could not get url of original kubeconfig file: \(error)")
-        return nil
-    }
-}
+var bookmarksFile = "Bookmarks.dict"
+var bookmarks = [URL: Data]()
 
 func openFolderSelection() -> URL?
 {
@@ -165,7 +156,6 @@ func restoreBookmark(_ bookmark: (key: URL, value: Data)) -> URL?
 
 func selectKubeconfigFile() throws {
     print("will select kubeconfig file...")
-    let fileManager = FileManager.default
     var kubeconfigFileUrl: URL?
     if testFileAsConfig == nil {
         kubeconfigFileUrl = openFolderSelection()
@@ -177,25 +167,8 @@ func selectKubeconfigFile() throws {
         return
     }
     
-    let tmp = Kubernetes(configFile: kubeconfigFileUrl!)
-    
-    // Check whether kubeconfig file can be parsed
-    let _ = try tmp.getConfig()
-    storeFolderInBookmark(url: kubeconfigFileUrl!)
-    saveBookmarksData()
-    
-    let origConfigURL = getOrigKubeconfigFileUrl()
-    
-    do {
-        if fileManager.isReadableFile(atPath: (origConfigURL?.path)!) {
-            try fileManager.removeItem(at: origConfigURL!)
-        }
-        try fileManager.copyItem(at: kubeconfigFileUrl!, to: origConfigURL!)
-    } catch {
-        NSLog("Error: could not backup original kubeconfig file: \(error)")
-    }
-    
-    initWatcher((kubeconfigFileUrl?.path)!)
+    // Try to initialize Kubernetes with new kubeconfig file, if possible.
+    let _ = try k8s.setKubeconfig(configFile: kubeconfigFileUrl!)
 }
 
 extension String {
@@ -258,38 +231,4 @@ func saveConfigToFile(config: Config, file:URL?) throws {
     let encoder = YAMLEncoder()
     let configContent = try encoder.encode(config)
     try configContent.write(to: file!, atomically: false, encoding: .utf8)
-}
-
-func resetWatcher(){
-    
-}
-func initWatcher(_ path: String){
-    if watcher != nil {
-        watcher.stop()
-        watcher.invalidate()
-    }
-    do {
-        watcher = try EonilFSEventStream(pathsToWatch: [path],
-                                         sinceWhen: .now,
-                                         latency: 0,
-                                         flags: [.noDefer, .fileEvents],
-                                         handler: {_ in
-                                            statusBarButton.imagePosition = NSControl.ImagePosition.imageLeft
-                                            do {
-                                                try statusBarButton.title = (k8s.getConfig()?.CurrentContext)!
-                                            } catch {
-                                                print(error)
-                                            }
-                                            print("event")
-                                            //button.imageHugsTitle = false
-                                            //button.contentTintColor = NSColor.red
-                                            //button.action = #selector(constructMenu(_:))
-                                            
-                                            
-        })
-        watcher!.setDispatchQueue(DispatchQueue.main)
-        try watcher!.start()
-    } catch {
-        print("Error while starting watcher: %s", error)
-    }
 }

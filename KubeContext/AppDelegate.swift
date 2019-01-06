@@ -8,6 +8,7 @@
 
 import Cocoa
 import Yams
+import EonilFSEvents
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
@@ -30,6 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if CommandLine.arguments.contains("--uitesting") {
             prepareForTesting()
         }
+        
+        k8s = Kubernetes()
     }
     
     func prepareForTesting(){

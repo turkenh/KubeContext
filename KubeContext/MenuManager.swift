@@ -15,19 +15,12 @@ class MenuManager: NSObject, NSMenuDelegate {
     
     override init() {
         super.init()
-        let kubeconfigFileUrl = loadBookmarks()
-        if kubeconfigFileUrl != nil {
-            k8s = Kubernetes(configFile: kubeconfigFileUrl!)
-            initWatcher((kubeconfigFileUrl?.path)!)
-        }
     }
     
     func menuWillOpen(_ menu: NSMenu) {
-        let kubeconfigFileUrl = loadBookmarks()
-        if kubeconfigFileUrl == nil {
+        if k8s.kubeconfig == nil {
             ConstructInitMenu(menu: menu)
         } else {
-            k8s = Kubernetes(configFile: kubeconfigFileUrl!)
             ConstructMainMenu(menu: menu)
         }
     }

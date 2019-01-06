@@ -98,13 +98,6 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     }
     
     func fetchConfig() {
-        let kubeconfigFileUrl = loadBookmarks()
-        if kubeconfigFileUrl != nil {
-            k8s = Kubernetes(configFile: kubeconfigFileUrl!)
-        } else {
-            NSLog("Could not get kubeconfigFileUrl")
-            return
-        }
         do {
             config = try k8s.getConfig()
         } catch {
@@ -473,6 +466,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             let kubeconfigFileUrl = loadBookmarks()
             let origConfigURL = getOrigKubeconfigFileUrl()
             let _ = try fileManager.replaceItemAt(kubeconfigFileUrl!, withItemAt: origConfigURL!, backupItemName: "kubeconfig.kubecontext")
+            k8s.kubeconfig = nil
             let alert = NSAlert()
             alert.icon = NSImage.init(named: NSImage.cautionName)
             alert.messageText = "Restored to original kubeconfig file!"

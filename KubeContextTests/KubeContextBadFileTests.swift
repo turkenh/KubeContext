@@ -15,6 +15,7 @@ class KubeContextBadFileTests: XCTestCase {
     
     override func setUp() {
         bundle = Bundle(for: type(of: self))
+        k8s = Kubernetes()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -24,40 +25,17 @@ class KubeContextBadFileTests: XCTestCase {
     
     func testLoadNonExistingFile() {
         let url = URL(fileURLWithPath: "/non-existing-dir/non-existing-file")
-        k8s = Kubernetes(configFile: url)
-        XCTAssertNotNil(k8s)
-        
-        XCTAssertThrowsError(try k8s?.getConfig(), "Handle non existing file") { (error) in
-            print(error)
-            XCTAssertEqual((error as NSError).domain, "NSCocoaErrorDomain")
-            // 260 -> The file <> couldn’t be opened because there is no such file.
-            XCTAssertEqual((error as NSError).code, 260)
-        }
+        XCTAssertThrowsError(try k8s?.setKubeconfig(configFile: url))
     }
     
     func testLoadEmptyFile() {
         let url = bundle.url(forResource: "empty-file", withExtension: "yaml", subdirectory: "TestData")
-        k8s = Kubernetes(configFile: url!)
-        XCTAssertNotNil(k8s)
-        
-        XCTAssertThrowsError(try k8s?.getConfig(), "Handle empty file") { (error) in
-            XCTAssertEqual((error as NSError).domain, "NSCocoaErrorDomain")
-            // 4864 -> typeMismatch(Yams.Node.Mapping, Swift.DecodingError.Context(codingPath: [], debugDescription: "Expected to decode Mapping but found Node instead."
-            XCTAssertEqual((error as NSError).code, 4864)
-        }
+        XCTAssertThrowsError(try k8s?.setKubeconfig(configFile: url))
     }
     
     func testLoadInvalidYaml() {
         let url = bundle.url(forResource: "invalid-yaml", withExtension: "yaml", subdirectory: "TestData")
-        k8s = Kubernetes(configFile: url!)
-        XCTAssertNotNil(k8s)
-        
-        XCTAssertThrowsError(try k8s?.getConfig(), "Handle invalid yaml file") { (error) in
-            print(error)
-            XCTAssertEqual((error as NSError).domain, "NSCocoaErrorDomain")
-            // 4864 -> typeMismatch(Yams.Node.Mapping, Swift.DecodingError.Context(codingPath: [], debugDescription: "Expected to decode Mapping but found Node instead."
-            XCTAssertEqual((error as NSError).code, 4864)
-        }
+        XCTAssertThrowsError(try k8s?.setKubeconfig(configFile: url))
     }
 
 }

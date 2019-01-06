@@ -30,7 +30,8 @@ class KubeContextLoadSingleContextTests: XCTestCase {
         }
         
         url = tempDataUrl!.appendingPathComponent("config-with-one-context.yaml")
-        k8s = Kubernetes(configFile: url)
+        k8s = Kubernetes()
+        XCTAssertNoThrow(try k8s?.setKubeconfig(configFile: url))
         XCTAssertNotNil(k8s)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -119,7 +120,8 @@ class KubeContextLoadTwoContextTests: XCTestCase {
         }
         
         url = tempDataUrl!.appendingPathComponent("config-with-two-contexts.yaml")
-        k8s = Kubernetes(configFile: url)
+        k8s = Kubernetes()
+        XCTAssertNoThrow(try k8s?.setKubeconfig(configFile: url))
         XCTAssertNotNil(k8s)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
