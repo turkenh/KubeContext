@@ -100,7 +100,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     func fetchConfig() {
         let kubeconfigFileUrl = loadBookmarks()
         if kubeconfigFileUrl != nil {
-            k8s = Kubernetes.init(configFile: kubeconfigFileUrl!)
+            k8s = Kubernetes(configFile: kubeconfigFileUrl!)
         } else {
             NSLog("Could not get kubeconfigFileUrl")
             return

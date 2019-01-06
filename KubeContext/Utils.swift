@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 import os
 import Yams
+import EonilFSEvents
 
 func getOrigKubeconfigFileUrl() -> URL? {
     let fileManager = FileManager.default
@@ -175,8 +176,8 @@ func selectKubeconfigFile() throws {
         NSLog("Error: Could not get selected file!")
         return
     }
-
-    let tmp = Kubernetes.init(configFile: kubeconfigFileUrl!)
+    
+    let tmp = Kubernetes(configFile: kubeconfigFileUrl!)
     
     // Check whether kubeconfig file can be parsed
     let _ = try tmp.getConfig()
@@ -193,6 +194,8 @@ func selectKubeconfigFile() throws {
     } catch {
         NSLog("Error: could not backup original kubeconfig file: \(error)")
     }
+    
+    initWatcher((kubeconfigFileUrl?.path)!)
 }
 
 extension String {
@@ -255,4 +258,38 @@ func saveConfigToFile(config: Config, file:URL?) throws {
     let encoder = YAMLEncoder()
     let configContent = try encoder.encode(config)
     try configContent.write(to: file!, atomically: false, encoding: .utf8)
+}
+
+func resetWatcher(){
+    
+}
+func initWatcher(_ path: String){
+    if watcher != nil {
+        watcher.stop()
+        watcher.invalidate()
+    }
+    do {
+        watcher = try EonilFSEventStream(pathsToWatch: [path],
+                                         sinceWhen: .now,
+                                         latency: 0,
+                                         flags: [.noDefer, .fileEvents],
+                                         handler: {_ in
+                                            statusBarButton.imagePosition = NSControl.ImagePosition.imageLeft
+                                            do {
+                                                try statusBarButton.title = (k8s.getConfig()?.CurrentContext)!
+                                            } catch {
+                                                print(error)
+                                            }
+                                            print("event")
+                                            //button.imageHugsTitle = false
+                                            //button.contentTintColor = NSColor.red
+                                            //button.action = #selector(constructMenu(_:))
+                                            
+                                            
+        })
+        watcher!.setDispatchQueue(DispatchQueue.main)
+        try watcher!.start()
+    } catch {
+        print("Error while starting watcher: %s", error)
+    }
 }

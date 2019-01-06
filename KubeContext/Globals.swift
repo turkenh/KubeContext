@@ -8,6 +8,8 @@
 
 import Foundation
 import os
+import EonilFSEvents
+import Cocoa
 
 let bundleID = Bundle.main.bundleIdentifier!
 //let logger = OSLog(subsystem: bundleID, category: "kube")
@@ -19,3 +21,5 @@ var testFileToImport: URL?
 var testFileAsConfig: URL?
 
 var k8s: Kubernetes!
+var watcher: EonilFSEventStream!
+var statusBarButton: NSStatusBarButton!

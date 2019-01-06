@@ -8,12 +8,18 @@
 
 import Foundation
 import Cocoa
+import EonilFSEvents
 
 class MenuManager: NSObject, NSMenuDelegate {
     var manageController: NSWindowController?
     
     override init() {
         super.init()
+        let kubeconfigFileUrl = loadBookmarks()
+        if kubeconfigFileUrl != nil {
+            k8s = Kubernetes(configFile: kubeconfigFileUrl!)
+            initWatcher((kubeconfigFileUrl?.path)!)
+        }
     }
     
     func menuWillOpen(_ menu: NSMenu) {

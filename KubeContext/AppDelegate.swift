@@ -16,9 +16,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
-            button.image = NSImage(named:NSImage.Name("kubernetes-icon"))
-            //button.imagePosition = NSControl.ImagePosition.imageLeft
-            //button.title = "PROD"
+            statusBarButton = button
+            statusBarButton.image = NSImage(named:NSImage.Name("kubernetes-icon"))
             //button.imageHugsTitle = false
             //button.contentTintColor = NSColor.red
             //button.action = #selector(constructMenu(_:))
