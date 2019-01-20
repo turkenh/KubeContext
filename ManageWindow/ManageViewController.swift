@@ -62,7 +62,9 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         case [.option]:
             importButtonAction="restore"
             importRestoreButton.title = "Restore Original"
+            importRestoreButton.isHidden = false
         default:
+            importRestoreButton.isHidden = true
             importButtonAction="import"
             importRestoreButton.title = "Import Kubeconfig"
         }
@@ -283,10 +285,12 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         
         switch sender.selectedSegment {
         case 0:
-            addNewContext()
+            importContext()
         case 1:
             removeCurrentContext()
         case 2:
+            addNewContext()
+        case 3:
             exportSelectedContext()
         default:
             NSLog("Unknown segment in bottom controls")
@@ -419,32 +423,35 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         revertButton.isEnabled = true
     }
     
+    func importContext() {
+        print("will import file...")
+        if k8s == nil {
+            NSLog("Not able to import config file, kubernetes not initialized!")
+            return
+        }
+        var configToImportFileUrl: URL?
+        if testFileToImport == nil {
+            configToImportFileUrl = openFolderSelection()
+        } else {
+            configToImportFileUrl = testFileToImport
+        }
+        if configToImportFileUrl == nil {
+            NSLog("Not able to import config file, could not access file!")
+            return
+        }
+        do {
+            config = try k8s.mergeKubeconfigIntoConfig(configToImportFileUrl: configToImportFileUrl!, mainConfig: config!)
+        } catch {
+            NSLog("Could not merge imported config file\(error))")
+        }
+        print("imported!")
+        refreshTable()
+        applyButton.isEnabled = true
+        revertButton.isEnabled = true
+    }
     @IBAction func importRestoreClicked(_ sender: Any) {
         if (importButtonAction == "import") {
-            print("will import file...")
-            if k8s == nil {
-                NSLog("Not able to import config file, kubernetes not initialized!")
-                return
-            }
-            var configToImportFileUrl: URL?
-            if testFileToImport == nil {
-                configToImportFileUrl = openFolderSelection()
-            } else {
-                configToImportFileUrl = testFileToImport
-            }
-            if configToImportFileUrl == nil {
-                NSLog("Not able to import config file, could not access file!")
-                return
-            }
-            do {
-                config = try k8s.mergeKubeconfigIntoConfig(configToImportFileUrl: configToImportFileUrl!, mainConfig: config!)
-            } catch {
-                NSLog("Could not merge imported config file\(error))")
-            }
-            print("imported!")
-            refreshTable()
-            applyButton.isEnabled = true
-            revertButton.isEnabled = true
+            importContext()
         } else if (importButtonAction == "restore") {
             let alert = NSAlert()
             alert.icon = NSImage.init(named: NSImage.cautionName)

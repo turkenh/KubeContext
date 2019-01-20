@@ -229,7 +229,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H14-SS-Seo">
+                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H14-SS-Seo">
                                 <rect key="frame" x="14" y="17" width="153" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Import Kubeconfig" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y6X-fk-ccI">
@@ -269,18 +269,17 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvR-NI-uhk">
+                            <segmentedControl identifier="add" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvR-NI-uhk">
                                 <rect key="frame" x="20" y="64" width="193" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="smallSquare" trackingMode="momentary" id="axd-fg-uWx">
                                     <font key="font" metaFont="system"/>
                                     <segments>
-                                        <segment alignment="left" image="NSAddTemplate"/>
-                                        <segment image="NSRemoveTemplate" tag="1"/>
-                                        <segment image="export" width="28"/>
-                                        <segment width="106">
-                                            <nil key="label"/>
-                                        </segment>
+                                        <segment alignment="left" toolTip="Import Config" image="NSAddTemplate"/>
+                                        <segment toolTip="Delete Context" image="NSRemoveTemplate" tag="1"/>
+                                        <segment toolTip="Duplicate Context" image="duplicate" width="28"/>
+                                        <segment toolTip="Export Context" image="export" width="28"/>
+                                        <segment width="77"/>
                                     </segments>
                                 </segmentedCell>
                                 <connections>
@@ -310,6 +309,7 @@
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="duplicate" width="30" height="40"/>
         <image name="export" width="30" height="40"/>
     </resources>
 </document>

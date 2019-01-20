@@ -232,7 +232,7 @@ class KubeContextUITests: XCTestCase {
         
         let contextManagementWindow = app.windows["Context Management"]
         contextManagementWindow/*@START_MENU_TOKEN@*/.tables.staticTexts["minikube"]/*[[".scrollViews.tables",".tableRows",".cells.staticTexts[\"minikube\"]",".staticTexts[\"minikube\"]",".tables"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/.click()
-        contextManagementWindow/*@START_MENU_TOKEN@*/.buttons["add"]/*[[".groups.buttons[\"add\"]",".buttons[\"add\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.click()
+        XCUIApplication().windows["Context Management"].groups["add"].children(matching: .button).element(boundBy: 2).click()
         
         let managementNameTextField = contextManagementWindow/*@START_MENU_TOKEN@*/.textFields["management-name"]/*[[".groups.textFields[\"management-name\"]",".textFields[\"management-name\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         managementNameTextField.click()
@@ -344,7 +344,7 @@ class KubeContextUITests: XCTestCase {
         manageContextsMenuItem.click()
         
         let contextManagementWindow = app.windows["Context Management"]
-        let importKubeconfigButton = contextManagementWindow.buttons["Import Kubeconfig"]
+        let importKubeconfigButton = XCUIApplication().windows["Context Management"].groups["add"].children(matching: .button).element(boundBy: 0)
         importKubeconfigButton.click()
         
         let applyButton = contextManagementWindow.buttons["Apply"]
@@ -411,7 +411,7 @@ class KubeContextUITests: XCTestCase {
         contextManagementWindow/*@START_MENU_TOKEN@*/.popUpButtons["management-popuser"]/*[[".groups.popUpButtons[\"management-popuser\"]",".popUpButtons[\"management-popuser\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.click()
         contextManagementWindow.menuItems["real-admin"].click()
         applyButton.click()
-        contextManagementWindow/*@START_MENU_TOKEN@*/.buttons["add"]/*[[".groups.buttons[\"add\"]",".buttons[\"add\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.click()
+        XCUIApplication().windows["Context Management"].groups["add"].children(matching: .button).element(boundBy: 2).click()
         applyButton.click()
         
         let xcuiClosewindowButton = contextManagementWindow.buttons[XCUIIdentifierCloseWindow]
