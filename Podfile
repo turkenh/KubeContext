@@ -7,5 +7,6 @@ target 'KubeContext' do
 
   # Pods for KubeContext
   pod 'Yams'
+  pod 'SwiftyStoreKit'
 
 end

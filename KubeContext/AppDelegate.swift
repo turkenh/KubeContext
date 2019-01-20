@@ -33,6 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         
         k8s = Kubernetes()
+        
+        getProduct()
     }
     
     func prepareForTesting(){
