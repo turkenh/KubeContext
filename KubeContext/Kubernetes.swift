@@ -16,8 +16,7 @@ let contextChangedCallback: (EonilFSEventsEvent) -> () = {_ in
     statusBarButton.imagePosition = NSControl.ImagePosition.imageLeft
     if k8s.kubeconfig != nil {
         do {
-            let currContext: String = try (k8s.getConfig()?.CurrentContext)!
-            statusBarButton.title = currContext.truncated(limit: 20, position: String.TruncationPosition.middle, leader: "...")
+            try showContextName()
         } catch {
             NSLog("Error occured while trying to set statusBarButton in contextChangedCallback %@", error as NSError) 
         }
@@ -28,19 +27,40 @@ let contextChangedCallback: (EonilFSEventsEvent) -> () = {_ in
     //button.action = #selector(constructMenu(_:))
 }
 
+func showContextName() throws {
+    if k8s.shouldShowContextName {
+        let currContext: String = try (k8s.getConfig()?.CurrentContext)!
+        statusBarButton.title = currContext.truncated(limit: 20, position: String.TruncationPosition.middle, leader: "...")
+    } else {
+        statusBarButton.title = ""
+    }
+}
+
 class Kubernetes {
     let fileManager = FileManager.default
     var kubeconfig:URL?
+    var shouldShowContextName:Bool
     var watcher: EonilFSEventStream!
 
     init() {
+        shouldShowContextName = UserDefaults.standard.bool(forKey: keyShowContextOnMenu)
         let f = loadBookmarks()
         if f == nil {
             return
         }
+    
         if kubeconfig == nil || kubeconfig != f {
             kubeconfig = f
             initWatcher()
+        }
+    }
+    
+    func setShowContextName(show: Bool) {
+        shouldShowContextName = show
+        do {
+            try showContextName()
+        } catch {
+            NSLog("Error occured while trying to setShowContextName %@", error as NSError)
         }
     }
     
@@ -73,10 +93,9 @@ class Kubernetes {
             watcher!.setDispatchQueue(DispatchQueue.main)
             try watcher!.start()
         } catch {
-            print("Error while starting watcher: %s", error)
+            NSLog("Error while starting watcher: %s", error as NSError)
         }
     }
-
     
     func backupKubeconfig() {
         let origConfigURL = getOrigKubeconfigFileUrl()

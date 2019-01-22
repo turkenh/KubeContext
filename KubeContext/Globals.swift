@@ -11,6 +11,9 @@ import os
 import Cocoa
 
 let bundleID = Bundle.main.bundleIdentifier!
+
+let keyPro = "pro"
+let keyShowContextOnMenu = "show-context-name"
 //let logger = OSLog(subsystem: bundleID, category: "kube")
 var uiTesting = false
 var testFileToImport: URL?
@@ -18,3 +21,5 @@ var testFileAsConfig: URL?
 
 var k8s: Kubernetes!
 var statusBarButton: NSStatusBarButton!
+
+var proProductPriceString = ""

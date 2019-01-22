@@ -9,6 +9,7 @@
 import Cocoa
 import Yams
 import EonilFSEvents
+import SwiftyStoreKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
@@ -34,11 +35,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         k8s = Kubernetes()
         
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
+        }
+        
         getProduct()
+        
+        //verifyPurchase()
     }
     
     func prepareForTesting(){
-        print ("UI Testing Mode")
+        NSLog ("UI Testing Mode")
         bookmarksFile = "TestBookmarks.dict"
         uiTesting = true
         let fileManager = FileManager.default

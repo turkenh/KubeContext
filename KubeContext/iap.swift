@@ -14,14 +14,14 @@ let proProductId = bundleID + ".pro"
 func getProduct() {
     SwiftyStoreKit.retrieveProductsInfo([proProductId]) { result in
         if let product = result.retrievedProducts.first {
-            let priceString = product.localizedPrice!
-            print("Product: \(product.localizedDescription), price: \(priceString)")
+            proProductPriceString = product.localizedPrice!
+            NSLog("Product: \(product.localizedDescription), price: \(proProductPriceString)")
         }
         else if let invalidProductId = result.invalidProductIDs.first {
-            print("Invalid product identifier: \(invalidProductId)")
+            NSLog("Invalid product identifier: \(invalidProductId)")
         }
         else {
-            print("Error: \(String(describing: result.error))")
+            NSLog("Error: \(String(describing: result.error))")
         }
     }
 }

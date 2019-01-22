@@ -286,17 +286,41 @@
                                     <action selector="bottomControlAction:" target="TZX-CG-v7T" id="QfP-YO-Lcs"/>
                                 </connections>
                             </segmentedControl>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Az8-pH-Pfq">
+                                <rect key="frame" x="231" y="26" width="213" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Show context name in menubar" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="vC4-ce-1UK">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showContextAction:" target="TZX-CG-v7T" id="Ral-5f-b8w"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IW6-fK-9I3">
+                                <rect key="frame" x="206" y="24" width="26" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="lock" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="iPT-Ar-No1">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="lockButtonAction:" target="TZX-CG-v7T" id="MO2-Me-M6p"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="applyButton" destination="miw-uF-Dwd" id="lVy-bV-l05"/>
                         <outlet property="clusterPopUpButton" destination="SE9-Fz-1MZ" id="f57-oG-2Gx"/>
+                        <outlet property="contextLockButton" destination="IW6-fK-9I3" id="E1G-Md-xUB"/>
                         <outlet property="importRestoreButton" destination="H14-SS-Seo" id="hzz-Vz-PSW"/>
                         <outlet property="kubeConfigFileLabel" destination="8fa-cj-RLX" id="tUA-XP-0sU"/>
                         <outlet property="nameTextField" destination="GNJ-zF-DCJ" id="D3K-ty-4jW"/>
                         <outlet property="namespaceTextField" destination="rbn-y7-NIm" id="rO6-ur-bas"/>
                         <outlet property="revertButton" destination="67x-yX-WO6" id="6nq-5A-N2d"/>
                         <outlet property="serverLabel" destination="Yki-C0-FkN" id="qmK-rS-j4Z"/>
+                        <outlet property="showContextCheckbox" destination="Az8-pH-Pfq" id="k00-l9-doS"/>
                         <outlet property="tableView" destination="Gtf-rj-yDQ" id="QeO-I2-Mtb"/>
                         <outlet property="userPopUpButton" destination="gPy-Kh-wHt" id="maZ-l5-APd"/>
                     </connections>
@@ -309,7 +333,8 @@
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="duplicate" width="30" height="40"/>
+        <image name="duplicate" width="60" height="80"/>
         <image name="export" width="30" height="40"/>
+        <image name="lock" width="128" height="128"/>
     </resources>
 </document>

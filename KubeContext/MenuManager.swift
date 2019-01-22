@@ -8,7 +8,6 @@
 
 import Foundation
 import Cocoa
-import EonilFSEvents
 
 class MenuManager: NSObject, NSMenuDelegate {
     var manageController: NSWindowController?
@@ -43,7 +42,7 @@ class MenuManager: NSObject, NSMenuDelegate {
     }
     
     @objc func logClick(_ sender: NSMenuItem) {
-        print("Clicked on " + sender.title)
+        NSLog("Clicked on " + sender.title)
     }
     
     @objc func openManagement(_ sender: NSMenuItem) {
@@ -59,7 +58,7 @@ class MenuManager: NSObject, NSMenuDelegate {
     }
 
     @objc func importConfig(_ sender: NSMenuItem) {
-        print("will import file...")
+        NSLog("will import file...")
         if k8s == nil {
             alertUserWithWarning(message: "Not able to import config file, kubernetes not initialized!")
             return

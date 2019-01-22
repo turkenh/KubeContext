@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftyStoreKit
 
 class ManageViewController: NSViewController, NSWindowDelegate {
     let fileManager = FileManager.default
@@ -26,6 +27,9 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var importRestoreButton: NSButton!
     
     @IBOutlet weak var kubeConfigFileLabel: NSTextField!
+    @IBOutlet weak var showContextCheckbox: NSButton!
+   
+    @IBOutlet weak var contextLockButton: NSButton!
     
     
     private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
@@ -48,6 +52,23 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         tableView.action = #selector(tableViewClick(_:))
         tableView.selectionHighlightStyle = .sourceList
         tableView.registerForDraggedTypes([dragDropType])
+        
+        let isPro = UserDefaults.standard.bool(forKey: keyPro)
+        if isPro {
+            unlock()
+        }
+        let shouldShowContextName = UserDefaults.standard.bool(forKey: keyShowContextOnMenu)
+        
+        if shouldShowContextName {
+            showContextCheckbox.state = .on
+        } else {
+            showContextCheckbox.state = .off
+        }
+    }
+    
+    func unlock() {
+        self.contextLockButton.isHidden = true
+        self.showContextCheckbox.isEnabled = true
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
@@ -424,7 +445,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     }
     
     func importContext() {
-        print("will import file...")
+        NSLog("will import file...")
         if k8s == nil {
             NSLog("Not able to import config file, kubernetes not initialized!")
             return
@@ -444,7 +465,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         } catch {
             NSLog("Could not merge imported config file\(error))")
         }
-        print("imported!")
+        NSLog("imported!")
         refreshTable()
         applyButton.isEnabled = true
         revertButton.isEnabled = true
@@ -493,6 +514,60 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             alertUserWithWarning(message: "Could not parse selected kubeconfig file\n \(error)")
         }
     }
+    
+    @IBAction func showContextAction(_ sender: Any) {
+        if showContextCheckbox.state == .off {
+            UserDefaults.standard.set(false, forKey: keyShowContextOnMenu)
+            k8s.setShowContextName(show: false)
+        } else if showContextCheckbox.state == .on {
+            UserDefaults.standard.set(true, forKey: keyShowContextOnMenu)
+            k8s.setShowContextName(show: true)
+        }
+    }
+    
+    @IBAction func lockButtonAction(_ sender: Any) {
+        if proProductPriceString == "" {
+            return
+        }
+        let alert = NSAlert()
+        alert.icon = NSImage.init(named: NSImage.cautionName)
+        alert.messageText = "Purchase Full Version"
+        alert.informativeText = "This will enable you to upgrade to the full version and use all features and functions.\n\n" +
+            "For " + proProductPriceString
+        alert.addButton(withTitle: "No")
+        alert.addButton(withTitle: "Yes")
+        alert.beginSheetModal(for: self.view.window!) { (returnCode: NSApplication.ModalResponse) -> Void in
+            NSLog ("Restore confirmation returnCode: \(returnCode)")
+            if returnCode == NSApplication.ModalResponse(rawValue: 1001) {
+                SwiftyStoreKit.purchaseProduct(proProductId, quantity: 1, atomically: true) { result in
+                    switch result {
+                    case .success(let purchase):
+                        NSLog("Purchase Success: \(purchase.productId)")
+                        UserDefaults.standard.set(true, forKey: keyPro)
+                        DispatchQueue.main.async {
+                            self.unlock()
+                        }
+                    case .error(let error):
+                        switch error.code {
+                        case .unknown: NSLog("Unknown error. Please contact support")
+                        case .clientInvalid: NSLog("Not allowed to make the payment")
+                        case .paymentCancelled: break
+                        case .paymentInvalid: NSLog("The purchase identifier was invalid")
+                        case .paymentNotAllowed: NSLog("The device is not allowed to make the payment")
+                        case .storeProductNotAvailable: NSLog("The product is not available in the current storefront")
+                        case .cloudServicePermissionDenied: NSLog("Access to cloud service information is not allowed")
+                        case .cloudServiceNetworkConnectionFailed: NSLog("Could not connect to the network")
+                        case .cloudServiceRevoked: NSLog("User has revoked permission to use this cloud service")
+                        default: NSLog((error as NSError).localizedDescription)
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    
+    
 }
 
 extension ManageViewController: NSTextFieldDelegate {

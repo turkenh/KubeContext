@@ -35,7 +35,7 @@ func openFolderSelection() -> URL?
         
         if (result != nil) {
             let path = result!.path
-            print(path)
+            NSLog(path)
         }
         return result
     } else {
@@ -58,7 +58,7 @@ func saveFolderSelection() -> URL?
         
         if (result != nil) {
             let path = result!.path
-            print(path)
+            NSLog(path)
         }
         return result
     } else {
@@ -69,7 +69,7 @@ func saveFolderSelection() -> URL?
 
 func saveBookmarksData()
 {
-    print("deleting old bookmark file...")
+    NSLog("deleting old bookmark file...")
     let fileManager = FileManager.default
     let path = getBookmarkPath()
     do {
@@ -155,7 +155,7 @@ func restoreBookmark(_ bookmark: (key: URL, value: Data)) -> URL?
 
 
 func selectKubeconfigFile() throws {
-    print("will select kubeconfig file...")
+    NSLog("will select kubeconfig file...")
     var kubeconfigFileUrl: URL?
     if testFileAsConfig == nil {
         kubeconfigFileUrl = openFolderSelection()
