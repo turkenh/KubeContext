@@ -60,6 +60,8 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         
         self.iconColorWell.isHidden = true
         
+        NSColorPanel.shared.mode = .colorList
+        
         let isPro = UserDefaults.standard.bool(forKey: keyPro)
         if isPro {
             unlock()
@@ -71,7 +73,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         self.iconColorLockButton.isHidden = true
         self.showContextCheckbox.isEnabled = true
         self.setIconColorCheckbox.isEnabled = true
-        self.iconColorWell.isHidden = false
+        //self.iconColorWell.isHidden = false
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
@@ -220,21 +222,21 @@ class ManageViewController: NSViewController, NSWindowDelegate {
 
         setIconColorCheckbox.state = .off
         iconColorWell.color = NSColor.gray
-        if #available(OSX 10.13, *) {
-            if let c = UserDefaults.standard.color(forKey: keyIconColorPrefix + item.Name) {
-                setIconColorCheckbox.state = .on
-                iconColorWell.color = c
-            }
+        iconColorWell.isHidden = true
+        if let c = item.IconColor {
+            iconColorWell.color = c
+            setIconColorCheckbox.state = .on
+            iconColorWell.isHidden = false
         }
         
-        if setIconColorCheckbox.state == .on {
+        /*if setIconColorCheckbox.state == .on {
             if #available(OSX 10.13, *) {
                 UserDefaults.standard.set(iconColorWell.color, forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
             }
         } else if setIconColorCheckbox.state == .off {
             UserDefaults.standard.removeObject(forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
             
-        }
+        }*/
 
         
     }
@@ -296,12 +298,9 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         }
         
         if setIconColorCheckbox.state == .on {
-            if #available(OSX 10.13, *) {
-                UserDefaults.standard.set(iconColorWell.color, forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
-            }
+            config.Contexts[activeRowIndex].IconColor = iconColorWell.color
         } else if setIconColorCheckbox.state == .off {
-            UserDefaults.standard.removeObject(forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
-
+            config.Contexts[activeRowIndex].IconColor = nil
         }
         
         do {
@@ -573,8 +572,13 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     @IBAction func setIconColorAction(_ sender: Any) {
         applyButton.isEnabled = true
         revertButton.isEnabled = true
+        if setIconColorCheckbox.state == .on {
+            iconColorWell.isHidden = false
+        } else {
+            iconColorWell.isHidden = true
+        }
     }
-    
+
     @IBAction func showContextAction(_ sender: Any) {
         applyButton.isEnabled = true
         revertButton.isEnabled = true

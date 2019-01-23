@@ -124,6 +124,7 @@ struct AuthInfo: Codable {
 struct ContextElement: Codable {
     var Context: Context
     var Name: String
+    var IconColor: NSColor?
     
     private enum CodingKeys : String, CodingKey {
         case Context="context"

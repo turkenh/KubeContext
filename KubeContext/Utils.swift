@@ -232,6 +232,16 @@ func saveConfigToFile(config: Config, file:URL?) throws {
     let encoder = YAMLEncoder()
     let configContent = try encoder.encode(config)
     try configContent.write(to: file!, atomically: false, encoding: .utf8)
+    
+    for ctx in config.Contexts {
+        if let c = ctx.IconColor {
+            if #available(OSX 10.13, *) {
+                UserDefaults.standard.set(c, forKey: keyIconColorPrefix + ctx.Name)
+            }
+        } else {
+            UserDefaults.standard.removeObject(forKey: keyIconColorPrefix + ctx.Name)
+        }
+    }
 }
 
 extension UserDefaults {

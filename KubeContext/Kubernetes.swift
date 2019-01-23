@@ -126,7 +126,16 @@ class Kubernetes {
         let fileContent = try String(contentsOf: url, encoding: .utf8)
         
         let decoder = YAMLDecoder()
-        let config = try decoder.decode(Config.self, from: fileContent)
+        var config = try decoder.decode(Config.self, from: fileContent)
+        
+
+        for (i, ctx) in config.Contexts.enumerated() {
+            if #available(OSX 10.13, *) {
+                if let c = UserDefaults.standard.color(forKey: keyIconColorPrefix + ctx.Name) {
+                    config.Contexts[i].IconColor = c
+                }
+            }
+        }
 
         return config
     }
