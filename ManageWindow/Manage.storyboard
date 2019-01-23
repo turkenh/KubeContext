@@ -43,7 +43,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQy-cL-FE9">
-                                            <rect key="frame" x="46" y="188" width="52" height="17"/>
+                                            <rect key="frame" x="46" y="197" width="52" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Cluster:" id="lcM-rl-JKr">
                                                 <font key="font" metaFont="system"/>
@@ -52,7 +52,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MbW-40-zip">
-                                            <rect key="frame" x="61" y="104" width="37" height="17"/>
+                                            <rect key="frame" x="61" y="122" width="37" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="User:" id="R1n-fP-sYt">
                                                 <font key="font" metaFont="system"/>
@@ -61,7 +61,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton identifier="management-popcluster" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SE9-Fz-1MZ">
-                                            <rect key="frame" x="108" y="183" width="267" height="25"/>
+                                            <rect key="frame" x="108" y="192" width="267" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="DSv-VW-yoT" id="oLw-82-KyK">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -79,7 +79,7 @@
                                             </connections>
                                         </popUpButton>
                                         <popUpButton identifier="management-popuser" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPy-Kh-wHt">
-                                            <rect key="frame" x="108" y="97" width="267" height="25"/>
+                                            <rect key="frame" x="108" y="115" width="267" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="17l-c0-qkH" id="KaX-8G-q7H">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -115,7 +115,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yki-C0-FkN">
-                                            <rect key="frame" x="108" y="129" width="266" height="49"/>
+                                            <rect key="frame" x="108" y="146" width="266" height="41"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" selectable="YES" title="Server: &lt;&gt;" id="JPi-8k-UE0">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -124,7 +124,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbS-l0-6pg">
-                                            <rect key="frame" x="18" y="54" width="80" height="17"/>
+                                            <rect key="frame" x="18" y="79" width="80" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Namespace:" id="vGz-6f-bn7">
                                                 <font key="font" metaFont="system"/>
@@ -133,7 +133,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField identifier="management-namespace" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbn-y7-NIm">
-                                            <rect key="frame" x="110" y="49" width="262" height="22"/>
+                                            <rect key="frame" x="110" y="74" width="262" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="KST-1r-ouH">
                                                 <font key="font" metaFont="system"/>
@@ -141,6 +141,36 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <colorWell fixedFrame="YES" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw0-ua-xbI">
+                                            <rect key="frame" x="315" y="22" width="44" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="colorWellAction:" target="TZX-CG-v7T" id="uul-ng-RIZ"/>
+                                            </connections>
+                                        </colorWell>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abS-I0-f3P">
+                                            <rect key="frame" x="108" y="25" width="201" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Set icon color for this context" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Vru-pc-vSl">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="setIconColorAction:" target="TZX-CG-v7T" id="CXG-iF-eVy"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jI-L9-NI4">
+                                            <rect key="frame" x="76" y="22" width="26" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="lock" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="lYL-BA-fQx">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="lockButtonAction:" target="TZX-CG-v7T" id="qK7-57-VPk"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="borderColor" name="unemphasizedSelectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -314,12 +344,15 @@
                         <outlet property="applyButton" destination="miw-uF-Dwd" id="lVy-bV-l05"/>
                         <outlet property="clusterPopUpButton" destination="SE9-Fz-1MZ" id="f57-oG-2Gx"/>
                         <outlet property="contextLockButton" destination="IW6-fK-9I3" id="E1G-Md-xUB"/>
+                        <outlet property="iconColorLockButton" destination="1jI-L9-NI4" id="zTU-MQ-S8T"/>
+                        <outlet property="iconColorWell" destination="Zw0-ua-xbI" id="xkB-Gu-WeE"/>
                         <outlet property="importRestoreButton" destination="H14-SS-Seo" id="hzz-Vz-PSW"/>
                         <outlet property="kubeConfigFileLabel" destination="8fa-cj-RLX" id="tUA-XP-0sU"/>
                         <outlet property="nameTextField" destination="GNJ-zF-DCJ" id="D3K-ty-4jW"/>
                         <outlet property="namespaceTextField" destination="rbn-y7-NIm" id="rO6-ur-bas"/>
                         <outlet property="revertButton" destination="67x-yX-WO6" id="6nq-5A-N2d"/>
                         <outlet property="serverLabel" destination="Yki-C0-FkN" id="qmK-rS-j4Z"/>
+                        <outlet property="setIconColorCheckbox" destination="abS-I0-f3P" id="EWL-ix-HSW"/>
                         <outlet property="showContextCheckbox" destination="Az8-pH-Pfq" id="k00-l9-doS"/>
                         <outlet property="tableView" destination="Gtf-rj-yDQ" id="QeO-I2-Mtb"/>
                         <outlet property="userPopUpButton" destination="gPy-Kh-wHt" id="maZ-l5-APd"/>

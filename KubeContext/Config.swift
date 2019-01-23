@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 struct Config: Codable {
     var APIVersion: String?

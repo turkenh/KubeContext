@@ -11,9 +11,11 @@ import os
 import Cocoa
 
 let bundleID = Bundle.main.bundleIdentifier!
+let proProductId = bundleID + ".pro"
 
 let keyPro = "pro"
 let keyShowContextOnMenu = "show-context-name"
+let keyIconColorPrefix = "icon-color-"
 //let logger = OSLog(subsystem: bundleID, category: "kube")
 var uiTesting = false
 var testFileToImport: URL?

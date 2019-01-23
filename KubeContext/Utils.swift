@@ -110,6 +110,7 @@ func loadBookmarks() -> URL?
     let path = getBookmarkPath()
     //print("Bookmarks path: " + path )
     if let bookmarks = NSKeyedUnarchiver.unarchiveObject(withFile: path) {
+        
         for bookmark in bookmarks as! [URL: Data]
         {
             return restoreBookmark(bookmark)
@@ -231,4 +232,35 @@ func saveConfigToFile(config: Config, file:URL?) throws {
     let encoder = YAMLEncoder()
     let configContent = try encoder.encode(config)
     try configContent.write(to: file!, atomically: false, encoding: .utf8)
+}
+
+extension UserDefaults {
+    
+    @available(OSX 10.13, *)
+    func color(forKey key: String) -> NSColor? {
+        
+        guard let colorData = data(forKey: key) else { return nil }
+        
+        do {
+            return try NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: colorData)
+        } catch let error {
+            print("color error \(error.localizedDescription)")
+            return nil
+        }
+        
+    }
+    
+    @available(OSX 10.13, *)
+    func set(_ value: NSColor?, forKey key: String) {
+        
+        guard let color = value else { return }
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+            set(data, forKey: key)
+        } catch let error {
+            print("error color key data not saved \(error.localizedDescription)")
+        }
+        
+    }
+    
 }

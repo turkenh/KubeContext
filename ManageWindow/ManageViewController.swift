@@ -28,8 +28,13 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     
     @IBOutlet weak var kubeConfigFileLabel: NSTextField!
     @IBOutlet weak var showContextCheckbox: NSButton!
+    
+    @IBOutlet weak var setIconColorCheckbox: NSButton!
+    @IBOutlet weak var iconColorWell: NSColorWell!
+    
    
     @IBOutlet weak var contextLockButton: NSButton!
+    @IBOutlet weak var iconColorLockButton: NSButton!
     
     
     private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
@@ -53,22 +58,20 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         tableView.selectionHighlightStyle = .sourceList
         tableView.registerForDraggedTypes([dragDropType])
         
+        self.iconColorWell.isHidden = true
+        
         let isPro = UserDefaults.standard.bool(forKey: keyPro)
         if isPro {
             unlock()
-        }
-        let shouldShowContextName = UserDefaults.standard.bool(forKey: keyShowContextOnMenu)
-        
-        if shouldShowContextName {
-            showContextCheckbox.state = .on
-        } else {
-            showContextCheckbox.state = .off
         }
     }
     
     func unlock() {
         self.contextLockButton.isHidden = true
+        self.iconColorLockButton.isHidden = true
         self.showContextCheckbox.isEnabled = true
+        self.setIconColorCheckbox.isEnabled = true
+        self.iconColorWell.isHidden = false
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
@@ -112,6 +115,15 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             }
         }
         refreshTable()
+        
+        let shouldShowContextName = UserDefaults.standard.bool(forKey: keyShowContextOnMenu)
+        
+        if shouldShowContextName {
+            showContextCheckbox.state = .on
+        } else {
+            showContextCheckbox.state = .off
+        }
+    
     }
     
     func refreshTable() {
@@ -205,6 +217,26 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             namespaceTextField.stringValue = ""
             namespaceTextField.placeholderString = "default"
         }
+
+        setIconColorCheckbox.state = .off
+        iconColorWell.color = NSColor.gray
+        if #available(OSX 10.13, *) {
+            if let c = UserDefaults.standard.color(forKey: keyIconColorPrefix + item.Name) {
+                setIconColorCheckbox.state = .on
+                iconColorWell.color = c
+            }
+        }
+        
+        if setIconColorCheckbox.state == .on {
+            if #available(OSX 10.13, *) {
+                UserDefaults.standard.set(iconColorWell.color, forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
+            }
+        } else if setIconColorCheckbox.state == .off {
+            UserDefaults.standard.removeObject(forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
+            
+        }
+
+        
     }
     
     func confirmExit() -> Bool {
@@ -263,11 +295,29 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             config.Contexts[activeRowIndex].Context.Namespace = namespaceTextField.stringValue
         }
         
+        if setIconColorCheckbox.state == .on {
+            if #available(OSX 10.13, *) {
+                UserDefaults.standard.set(iconColorWell.color, forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
+            }
+        } else if setIconColorCheckbox.state == .off {
+            UserDefaults.standard.removeObject(forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
+
+        }
+        
         do {
             try k8s.saveConfig(config: config!)
         } catch {
             NSLog("Not able to save config \(error))")
         }
+        
+        if showContextCheckbox.state == .off {
+            UserDefaults.standard.set(false, forKey: keyShowContextOnMenu)
+            k8s.setShowContextName(show: false)
+        } else if showContextCheckbox.state == .on {
+            UserDefaults.standard.set(true, forKey: keyShowContextOnMenu)
+            k8s.setShowContextName(show: true)
+        }
+        
         freshReload()
         
         applyButton.isEnabled = false
@@ -514,26 +564,59 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             alertUserWithWarning(message: "Could not parse selected kubeconfig file\n \(error)")
         }
     }
+    @IBAction func colorWellAction(_ sender: Any) {
+        applyButton.isEnabled = true
+        revertButton.isEnabled = true
+        setIconColorCheckbox.state = .on
+    }
+    
+    @IBAction func setIconColorAction(_ sender: Any) {
+        applyButton.isEnabled = true
+        revertButton.isEnabled = true
+    }
     
     @IBAction func showContextAction(_ sender: Any) {
-        if showContextCheckbox.state == .off {
-            UserDefaults.standard.set(false, forKey: keyShowContextOnMenu)
-            k8s.setShowContextName(show: false)
-        } else if showContextCheckbox.state == .on {
-            UserDefaults.standard.set(true, forKey: keyShowContextOnMenu)
-            k8s.setShowContextName(show: true)
-        }
+        applyButton.isEnabled = true
+        revertButton.isEnabled = true
     }
     
     @IBAction func lockButtonAction(_ sender: Any) {
-        if proProductPriceString == "" {
-            return
-        }
         let alert = NSAlert()
-        alert.icon = NSImage.init(named: NSImage.cautionName)
-        alert.messageText = "Purchase Full Version"
-        alert.informativeText = "This will enable you to upgrade to the full version and use all features and functions.\n\n" +
-            "For " + proProductPriceString
+        alert.icon = NSImage.init(named: "kubernetes")
+        
+        if proProductPriceString == "" {
+            alert.messageText = "Retrieving product information..."
+            let spinner = NSProgressIndicator(frame: NSMakeRect(0,0,60,60))
+            spinner.style = .spinning
+            spinner.startAnimation(self)
+            alert.accessoryView = spinner
+            
+            SwiftyStoreKit.retrieveProductsInfo([proProductId]) { result in
+                if let product = result.retrievedProducts.first {
+                    proProductPriceString = product.localizedPrice!
+                    DispatchQueue.main.async {
+                        alert.accessoryView = nil
+                        spinner.stopAnimation(self)
+                        spinner.isHidden = true
+                        alert.messageText = "Purchase Full Version"
+                        alert.informativeText = "This will enable you to upgrade to the full version and use all features and functions.\n\n" +
+                            "For " + proProductPriceString
+                        alert.layout()
+                    }
+                    NSLog("Product: \(product.localizedDescription), price: \(proProductPriceString)")
+                }
+                else if let invalidProductId = result.invalidProductIDs.first {
+                    NSLog("Invalid product identifier: \(invalidProductId)")
+                }
+                else {
+                    NSLog("Error: \(String(describing: result.error))")
+                }
+            }
+        } else {
+            alert.messageText = "Purchase Full Version"
+            alert.informativeText = "This will enable you to upgrade to the full version and use all features and functions.\n\n" +
+                "For " + proProductPriceString
+        }
         alert.addButton(withTitle: "No")
         alert.addButton(withTitle: "Yes")
         alert.beginSheetModal(for: self.view.window!) { (returnCode: NSApplication.ModalResponse) -> Void in
@@ -562,7 +645,6 @@ class ManageViewController: NSViewController, NSWindowDelegate {
                         }
                     }
                 }
-
             }
         }
     }

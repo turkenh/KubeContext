@@ -49,10 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 }
             }
         }
-        
-        getProduct()
-        
-        //verifyPurchase()
+        //UserDefaults.standard.set(false, forKey: keyPro)
     }
     
     func prepareForTesting(){

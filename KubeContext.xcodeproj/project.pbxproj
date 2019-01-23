@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8A0A020E21D2BDFB007DF454 /* ui-test-config-cleaned.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */; };
-		8A81174521F52600002A293C /* iap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A81174421F52600002A293C /* iap.swift */; };
 		8AC4CD8D21D57E79008E1F8F /* libEonilFSEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC4CD8B21D57D0E008E1F8F /* libEonilFSEvents.a */; };
 		8AD3AE6921F520BC00C81839 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD3AE6821F520BC00C81839 /* StoreKit.framework */; };
 		E422CCAD216E8D0A0008D173 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E422CCAC216E8D0A0008D173 /* Config.swift */; };
@@ -73,7 +72,6 @@
 /* Begin PBXFileReference section */
 		6E647E203802CA7F9FBE6AB9 /* Pods-KubeContext.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KubeContext.release.xcconfig"; path = "Pods/Target Support Files/Pods-KubeContext/Pods-KubeContext.release.xcconfig"; sourceTree = "<group>"; };
 		8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ui-test-config-cleaned.yaml"; path = "../../../KubeContext/KubeContextUITests/TestData/ui-test-config-cleaned.yaml"; sourceTree = "<group>"; };
-		8A81174421F52600002A293C /* iap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iap.swift; path = ../../KubeContext/KubeContext/iap.swift; sourceTree = "<group>"; };
 		8AC4CD8621D57D0E008E1F8F /* EonilFSEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EonilFSEvents.xcodeproj; path = ../FSEvents/EonilFSEvents.xcodeproj; sourceTree = "<group>"; };
 		8AD3AE6821F520BC00C81839 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9DBDB0F631DAD622DF0D6157 /* Pods_KubeContext.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KubeContext.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,7 +208,6 @@
 				E422CCAC216E8D0A0008D173 /* Config.swift */,
 				E4B0B222217126CD00AB7817 /* MenuManager.swift */,
 				E4AB87C1217BB704001C70C9 /* Globals.swift */,
-				8A81174421F52600002A293C /* iap.swift */,
 			);
 			path = KubeContext;
 			sourceTree = "<group>";
@@ -464,7 +461,6 @@
 				E4DE5AE42166AAD800B6959B /* AppDelegate.swift in Sources */,
 				E4AB87C2217BB704001C70C9 /* Globals.swift in Sources */,
 				E471094521695DF70037A107 /* Kubernetes.swift in Sources */,
-				8A81174521F52600002A293C /* iap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

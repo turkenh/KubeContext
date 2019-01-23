@@ -28,11 +28,18 @@ let contextChangedCallback: (EonilFSEventsEvent) -> () = {_ in
 }
 
 func showContextName() throws {
+    let currContext: String = try (k8s.getConfig()?.CurrentContext)!
     if k8s.shouldShowContextName {
-        let currContext: String = try (k8s.getConfig()?.CurrentContext)!
         statusBarButton.title = currContext.truncated(limit: 20, position: String.TruncationPosition.middle, leader: "...")
     } else {
         statusBarButton.title = ""
+    }
+    if #available(OSX 10.14, *) {
+        if let c = UserDefaults.standard.color(forKey: keyIconColorPrefix + currContext) {
+            statusBarButton.contentTintColor = c
+        } else {
+            statusBarButton.contentTintColor = nil
+        }
     }
 }
 
@@ -40,6 +47,7 @@ class Kubernetes {
     let fileManager = FileManager.default
     var kubeconfig:URL?
     var shouldShowContextName:Bool
+    var iconColor: NSColor?
     var watcher: EonilFSEventStream!
 
     init() {
