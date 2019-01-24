@@ -305,7 +305,7 @@
                                         <segment alignment="left" toolTip="Import Config" image="NSAddTemplate"/>
                                         <segment toolTip="Delete Context" image="NSRemoveTemplate" tag="1"/>
                                         <segment toolTip="Duplicate Context" image="duplicate" width="28"/>
-                                        <segment toolTip="Export Context" image="export" width="28"/>
+                                        <segment toolTip="Export Context" image="lock" width="28"/>
                                         <segment width="77"/>
                                     </segments>
                                 </segmentedCell>
@@ -339,6 +339,7 @@
                     </view>
                     <connections>
                         <outlet property="applyButton" destination="miw-uF-Dwd" id="lVy-bV-l05"/>
+                        <outlet property="bottomSegmentedControl" destination="dvR-NI-uhk" id="sPE-ln-gAj"/>
                         <outlet property="clusterPopUpButton" destination="SE9-Fz-1MZ" id="f57-oG-2Gx"/>
                         <outlet property="contextLockButton" destination="IW6-fK-9I3" id="E1G-Md-xUB"/>
                         <outlet property="iconColorLockButton" destination="1jI-L9-NI4" id="zTU-MQ-S8T"/>
@@ -364,7 +365,6 @@
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="duplicate" width="60" height="80"/>
-        <image name="export" width="30" height="40"/>
         <image name="lock" width="128" height="128"/>
     </resources>
 </document>

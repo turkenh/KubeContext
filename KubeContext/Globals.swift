@@ -25,3 +25,5 @@ var k8s: Kubernetes!
 var statusBarButton: NSStatusBarButton!
 
 var proProductPriceString = ""
+
+var maxContextForFree = 4

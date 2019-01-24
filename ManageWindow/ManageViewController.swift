@@ -32,9 +32,10 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var setIconColorCheckbox: NSButton!
     @IBOutlet weak var iconColorWell: NSColorWell!
     
-   
     @IBOutlet weak var contextLockButton: NSButton!
     @IBOutlet weak var iconColorLockButton: NSButton!
+    
+    @IBOutlet weak var bottomSegmentedControl: NSSegmentedControl!
     
     
     private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
@@ -70,7 +71,6 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-
     @objc func colorDidChange(sender:AnyObject) {
         if sender is NSColorPanel {
             applyButton.isEnabled = true
@@ -83,6 +83,9 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         self.iconColorLockButton.isHidden = true
         self.showContextCheckbox.isEnabled = true
         self.setIconColorCheckbox.isEnabled = true
+        
+        bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "export"), forSegment: 3)
+        
         //self.iconColorWell.isHidden = false
     }
     
@@ -361,7 +364,11 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         case 2:
             addNewContext()
         case 3:
-            exportSelectedContext()
+            if bottomSegmentedControl.image(forSegment: 3)?.name() == "export" {
+                exportSelectedContext()
+            } else {
+                lockButtonAction(self)
+            }
         default:
             NSLog("Unknown segment in bottom controls")
         }
