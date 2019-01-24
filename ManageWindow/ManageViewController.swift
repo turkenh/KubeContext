@@ -61,6 +61,8 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         self.iconColorWell.isHidden = true
         
         NSColorPanel.shared.mode = .colorList
+        NSColorPanel.shared.setTarget(self)
+        NSColorPanel.shared.setAction(#selector(self.colorDidChange(sender:)))
         
         let isPro = UserDefaults.standard.bool(forKey: keyPro)
         if isPro {
@@ -68,6 +70,14 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         }
     }
     
+
+    @objc func colorDidChange(sender:AnyObject) {
+        if sender is NSColorPanel {
+            applyButton.isEnabled = true
+            revertButton.isEnabled = true
+        }
+    }
+
     func unlock() {
         self.contextLockButton.isHidden = true
         self.iconColorLockButton.isHidden = true
@@ -228,17 +238,6 @@ class ManageViewController: NSViewController, NSWindowDelegate {
             setIconColorCheckbox.state = .on
             iconColorWell.isHidden = false
         }
-        
-        /*if setIconColorCheckbox.state == .on {
-            if #available(OSX 10.13, *) {
-                UserDefaults.standard.set(iconColorWell.color, forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
-            }
-        } else if setIconColorCheckbox.state == .off {
-            UserDefaults.standard.removeObject(forKey: keyIconColorPrefix + config.Contexts[activeRowIndex].Name)
-            
-        }*/
-
-        
     }
     
     func confirmExit() -> Bool {
@@ -319,13 +318,14 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         
         freshReload()
         
+        NSColorPanel.shared.close()
         applyButton.isEnabled = false
         revertButton.isEnabled = false
     }
     
     @IBAction func revertClicked(_ sender: Any) {
         freshReload()
-        
+        NSColorPanel.shared.close()
         applyButton.isEnabled = false
         revertButton.isEnabled = false
     }
