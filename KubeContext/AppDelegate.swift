@@ -35,6 +35,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         k8s = Kubernetes()
         
+        // For testing
+        //UserDefaults.standard.set(false, forKey: keyPro)
+        //UserDefaults.standard.removeObject(forKey: keyExistingUserPrePro)
+        // End of For testing
+
+        isPro = UserDefaults.standard.bool(forKey: keyPro)
+        isExistingUserPrePro = UserDefaults.standard.integer(forKey: keyExistingUserPrePro)
+        if isExistingUserPrePro == existingUserPreProUndefined {
+            if k8s.kubeconfig == nil {
+                isExistingUserPrePro = existingUserPreProFalse
+                UserDefaults.standard.set(existingUserPreProFalse, forKey: keyExistingUserPrePro)
+            }
+            else {
+                isExistingUserPrePro = existingUserPreProTrue
+                UserDefaults.standard.set(existingUserPreProTrue, forKey: keyExistingUserPrePro)
+            }
+        }
+        
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
@@ -49,7 +67,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 }
             }
         }
-        //UserDefaults.standard.set(false, forKey: keyPro)
     }
     
     func prepareForTesting(){
@@ -69,5 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         testFileAsConfig = tempDataUrl.appendingPathComponent("ui-test-config.yaml")
         testFileToImport = tempDataUrl.appendingPathComponent("file-to-import.yaml")
+        
+        UserDefaults.standard.set(true, forKey: keyPro)
     }
 }

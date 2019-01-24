@@ -14,6 +14,7 @@ let bundleID = Bundle.main.bundleIdentifier!
 let proProductId = bundleID + ".pro"
 
 let keyPro = "pro"
+let keyExistingUserPrePro = "pre-pro-existing-user"
 let keyShowContextOnMenu = "show-context-name"
 let keyIconColorPrefix = "icon-color-"
 //let logger = OSLog(subsystem: bundleID, category: "kube")
@@ -26,4 +27,15 @@ var statusBarButton: NSStatusBarButton!
 
 var proProductPriceString = ""
 
-var maxContextForFree = 4
+let maxContextsForFree = 5
+
+var maxNofContexts = maxContextsForFree
+
+let existingUserPreProUndefined = 0
+let existingUserPreProFalse = 1
+let existingUserPreProTrue = 2
+
+var isExistingUserPrePro = existingUserPreProUndefined
+var isPro = false
+
+

@@ -65,9 +65,10 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         NSColorPanel.shared.setTarget(self)
         NSColorPanel.shared.setAction(#selector(self.colorDidChange(sender:)))
         
-        let isPro = UserDefaults.standard.bool(forKey: keyPro)
         if isPro {
-            unlock()
+            unlockAll()
+        } else if isExistingUserPrePro == existingUserPreProTrue {
+            unlockExportAndContextLimit()
         }
     }
     
@@ -78,15 +79,21 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         }
     }
 
-    func unlock() {
+    func unlockAll() {
         self.contextLockButton.isHidden = true
         self.iconColorLockButton.isHidden = true
         self.showContextCheckbox.isEnabled = true
         self.setIconColorCheckbox.isEnabled = true
         
-        bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "export"), forSegment: 3)
+        bottomSegmentedControl.setImage(NSImage(named: NSImage.addTemplateName), forSegment: 0)
+        bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "duplicate"), forSegment: 2)
         
-        //self.iconColorWell.isHidden = false
+        unlockExportAndContextLimit()
+    }
+    
+    func unlockExportAndContextLimit() {
+        bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "export"), forSegment: 3)
+        maxNofContexts = 99999999999999999
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
@@ -358,16 +365,24 @@ class ManageViewController: NSViewController, NSWindowDelegate {
         
         switch sender.selectedSegment {
         case 0:
-            importContext()
+            if bottomSegmentedControl.image(forSegment: 0)?.name() == "lock" {
+                lockButtonAction(self)
+            } else {
+                importContext()
+            }
         case 1:
             removeCurrentContext()
         case 2:
-            addNewContext()
-        case 3:
-            if bottomSegmentedControl.image(forSegment: 3)?.name() == "export" {
-                exportSelectedContext()
-            } else {
+            if bottomSegmentedControl.image(forSegment: 2)?.name() == "lock" {
                 lockButtonAction(self)
+            } else {
+                addNewContext()
+            }
+        case 3:
+            if bottomSegmentedControl.image(forSegment: 3)?.name() == "lock" {
+                lockButtonAction(self)
+            } else {
+                exportSelectedContext()
             }
         default:
             NSLog("Unknown segment in bottom controls")
@@ -592,9 +607,23 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     }
     
     @IBAction func lockButtonAction(_ sender: Any) {
+        let informativeText = """
+This will enable you to upgrade to the full version and use all features and functions:
+
+* Unlimited number of contexts
+(free version is limited to \(maxContextsForFree) contexts)
+        
+* Show current context name in menu bar
+        
+* Assign icon colors for contexts (macOS 10.14 or later )
+(e.g. "red" when you're on prod context)
+        
+* Export single context as a kubeconfig file
+        
+"""
         let alert = NSAlert()
         alert.icon = NSImage.init(named: "kubernetes")
-        
+        alert.addButton(withTitle: "Cancel")
         if proProductPriceString == "" {
             alert.messageText = "Retrieving product information..."
             let spinner = NSProgressIndicator(frame: NSMakeRect(0,0,60,60))
@@ -610,8 +639,8 @@ class ManageViewController: NSViewController, NSWindowDelegate {
                         spinner.stopAnimation(self)
                         spinner.isHidden = true
                         alert.messageText = "Purchase Full Version"
-                        alert.informativeText = "This will enable you to upgrade to the full version and use all features and functions.\n\n" +
-                            "For " + proProductPriceString
+                        alert.informativeText = informativeText + "\n\nFor " + proProductPriceString
+                        alert.addButton(withTitle: "Yes")
                         alert.layout()
                     }
                     NSLog("Product: \(product.localizedDescription), price: \(proProductPriceString)")
@@ -624,12 +653,10 @@ class ManageViewController: NSViewController, NSWindowDelegate {
                 }
             }
         } else {
+            alert.addButton(withTitle: "Yes")
             alert.messageText = "Purchase Full Version"
-            alert.informativeText = "This will enable you to upgrade to the full version and use all features and functions.\n\n" +
-                "For " + proProductPriceString
+            alert.informativeText = informativeText + "\n\nFor " + proProductPriceString
         }
-        alert.addButton(withTitle: "No")
-        alert.addButton(withTitle: "Yes")
         alert.beginSheetModal(for: self.view.window!) { (returnCode: NSApplication.ModalResponse) -> Void in
             NSLog ("Restore confirmation returnCode: \(returnCode)")
             if returnCode == NSApplication.ModalResponse(rawValue: 1001) {
@@ -639,7 +666,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
                         NSLog("Purchase Success: \(purchase.productId)")
                         UserDefaults.standard.set(true, forKey: keyPro)
                         DispatchQueue.main.async {
-                            self.unlock()
+                            self.unlockAll()
                         }
                     case .error(let error):
                         switch error.code {
@@ -676,7 +703,17 @@ extension ManageViewController: NSTextFieldDelegate {
 extension ManageViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return contexts?.count ?? 0
+        if let cnt = contexts?.count {
+            if cnt < maxNofContexts {
+                bottomSegmentedControl.setImage(NSImage(named: NSImage.addTemplateName), forSegment: 0)
+                bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "duplicate"), forSegment: 2)
+            } else {
+                bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "lock"), forSegment: 0)
+                bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "lock"), forSegment: 2)
+            }
+            return cnt
+        }
+        return 0
     }
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
