@@ -30,7 +30,7 @@ var proProductPriceString = ""
 let maxContextsForFree = 5
 let unlimitedNofContexts = 99999999999999999
 
-var maxNofContexts = maxContextsForFree
+var maxNofContexts = 5 // maxContextsForFree
 
 let existingUserPreProUndefined = 0
 let existingUserPreProFalse = 1

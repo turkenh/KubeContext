@@ -615,7 +615,7 @@ This will enable you to upgrade to the full version and use all features and fun
         
 * Show current context name in menu bar
         
-* Assign icon colors for contexts (macOS 10.14 or later )
+* Assign icon colors for contexts -macOS 10.14 or later-
 (e.g. "red" when you're on prod context)
         
 * Export single context as a kubeconfig file
