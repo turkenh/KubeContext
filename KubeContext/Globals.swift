@@ -28,6 +28,7 @@ var statusBarButton: NSStatusBarButton!
 var proProductPriceString = ""
 
 let maxContextsForFree = 5
+let unlimitedNofContexts = 99999999999999999
 
 var maxNofContexts = maxContextsForFree
 

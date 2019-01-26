@@ -19,7 +19,8 @@ func openFolderSelection() -> URL?
 {
     let dialog = NSOpenPanel();
     
-    dialog.title                   = "Choose kubeconfig file";
+    //dialog.title                   = "Choose kubeconfig file";
+    dialog.message                 = "Choose kubeconfig file";
     dialog.showsResizeIndicator    = true;
     dialog.showsHiddenFiles        = true;
     dialog.canChooseDirectories    = false;

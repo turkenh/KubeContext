@@ -38,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // For testing
         //UserDefaults.standard.set(false, forKey: keyPro)
         //UserDefaults.standard.removeObject(forKey: keyExistingUserPrePro)
+        //UserDefaults.standard.set(existingUserPreProFalse, forKey: keyExistingUserPrePro)
         // End of For testing
 
         isPro = UserDefaults.standard.bool(forKey: keyPro)
@@ -51,6 +52,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 isExistingUserPrePro = existingUserPreProTrue
                 UserDefaults.standard.set(existingUserPreProTrue, forKey: keyExistingUserPrePro)
             }
+        }
+        if isPro || isExistingUserPrePro == existingUserPreProTrue {
+            maxNofContexts = unlimitedNofContexts
         }
         
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in

@@ -93,7 +93,7 @@ class ManageViewController: NSViewController, NSWindowDelegate {
     
     func unlockExportAndContextLimit() {
         bottomSegmentedControl.setImage(NSImage(imageLiteralResourceName: "export"), forSegment: 3)
-        maxNofContexts = 99999999999999999
+        maxNofContexts = unlimitedNofContexts
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {

@@ -55,6 +55,11 @@ class MenuManager: NSObject, NSMenuDelegate {
             manageController!.showWindow(sender)
             manageController!.window?.orderFrontRegardless()
         }
+        if sender.title == "Import Kubeconfig File" {
+            if let a = manageController?.contentViewController as? ManageViewController {
+                a.lockButtonAction(self)
+            }
+        }
     }
 
     @objc func importConfig(_ sender: NSMenuItem) {
@@ -155,7 +160,12 @@ class MenuManager: NSObject, NSMenuDelegate {
         menu.setSubmenu(switchContextSubmenu, for: switchContextMenuItem)
         
         // Import Kubeconfig file
-        let importKubeconfigMenuItem = NSMenuItem(title: "Import Kubeconfig File", action: #selector(importConfig(_:)), keyEquivalent: "i")
+        var importAction = #selector(importConfig(_:))
+        if ctxs.count >= maxNofContexts {
+            importAction = #selector(openManagement(_:))
+        }
+
+        let importKubeconfigMenuItem = NSMenuItem(title: "Import Kubeconfig File", action: importAction, keyEquivalent: "i")
         importKubeconfigMenuItem.target = self
         menu.addItem(importKubeconfigMenuItem)
         
