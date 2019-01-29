@@ -641,6 +641,7 @@ This will enable you to upgrade to the full version and use all features and fun
                         alert.messageText = "Purchase Full Version"
                         alert.informativeText = informativeText + "\n\nFor " + proProductPriceString
                         alert.addButton(withTitle: "Yes")
+                        alert.addButton(withTitle: "Restore Purchases")
                         alert.layout()
                     }
                     NSLog("Product: \(product.localizedDescription), price: \(proProductPriceString)")
@@ -654,8 +655,10 @@ This will enable you to upgrade to the full version and use all features and fun
             }
         } else {
             alert.addButton(withTitle: "Yes")
+            alert.addButton(withTitle: "Restore Purchases")
             alert.messageText = "Purchase Full Version"
             alert.informativeText = informativeText + "\n\nFor " + proProductPriceString
+            
         }
         alert.beginSheetModal(for: self.view.window!) { (returnCode: NSApplication.ModalResponse) -> Void in
             NSLog ("Restore confirmation returnCode: \(returnCode)")
@@ -680,6 +683,32 @@ This will enable you to upgrade to the full version and use all features and fun
                         case .cloudServiceNetworkConnectionFailed: NSLog("Could not connect to the network")
                         case .cloudServiceRevoked: NSLog("User has revoked permission to use this cloud service")
                         default: NSLog((error as NSError).localizedDescription)
+                        }
+                    }
+                }
+            } else if returnCode == NSApplication.ModalResponse(rawValue: 1002) {
+                SwiftyStoreKit.restorePurchases(atomically: true) { results in
+                    if results.restoreFailedPurchases.count > 0 {
+                        NSLog("Restore Failed: \(results.restoreFailedPurchases)")
+                        DispatchQueue.main.async {
+                        self.alertUserWithWarning(message: "Restore Failed: \(results.restoreFailedPurchases)")
+                        }
+                    }
+                    else if results.restoredPurchases.count > 0 {
+                        NSLog("Restore Success: \(results.restoredPurchases)")
+                        if results.restoredPurchases[0].productId == proProductId {
+                            NSLog("Restore Success: \(proProductId)")
+                            UserDefaults.standard.set(true, forKey: keyPro)
+                            DispatchQueue.main.async {
+                                self.alertUserWithWarning(message: "Successfully restored KubeContext Pro!")
+                                self.unlockAll()
+                            }
+                        }
+                    }
+                    else {
+                        NSLog("Nothing to Restore")
+                        DispatchQueue.main.async {
+                            self.alertUserWithWarning(message: "Nothing to Restore!")
                         }
                     }
                 }
