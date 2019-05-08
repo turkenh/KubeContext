@@ -40,7 +40,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         //UserDefaults.standard.removeObject(forKey: keyExistingUserPrePro)
         //UserDefaults.standard.set(existingUserPreProFalse, forKey: keyExistingUserPrePro)
         // End of For testing
-
+        
+        // Github release - all free
+        UserDefaults.standard.set(true, forKey: keyPro)
+        
         isPro = UserDefaults.standard.bool(forKey: keyPro)
         isExistingUserPrePro = UserDefaults.standard.integer(forKey: keyExistingUserPrePro)
         if isExistingUserPrePro == existingUserPreProUndefined {
