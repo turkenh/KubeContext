@@ -3,7 +3,9 @@
 A small menu bar app for managing [Kubernetes](https://kubernetes.io) [contexts](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
 - Easily switch between contexts
-- Import additional kubeconfig files as new contexts
+- Import/export contexts from/to kubeconfig files
+- Context name in menu bar
+- Assign colors to your contexts
 - Easy context management UI for renaming context, setting namespace and more.
 
 ## Installation
