@@ -16,6 +16,8 @@ A small menu bar app for managing [Kubernetes](https://kubernetes.io) [contexts]
 
 - Download from [Releases](https://github.com/turkenh/KubeContext/releases)
 
+Please note: App Store version offers pro features as IAP, however other installation options bring all features as unlocked and free ;)
+
 ## Demo
 
 ### Switch Between Contexts
