@@ -1,0 +1,5 @@
+language: swift
+os: osx
+osx_image: xcode10.1
+script: xcodebuild -project EonilFSEvents.xcodeproj -target EonilFSEvents -configuration Debug
+script: xcodebuild -project EonilFSEvents.xcodeproj -target EonilFSEvents -configuration Release
