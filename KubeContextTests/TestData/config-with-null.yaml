@@ -1,0 +1,47 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: snipped-cert
+    server: redacted-url
+  name: dev-cluster
+- cluster:
+    certificate-authority-data: snipped-cert
+    server: redacted-url
+  name: prod-cluster
+contexts:
+- context:
+    cluster: dev-cluster
+    user: dev-user
+  name: dev
+- context:
+    cluster: prod-cluster
+    user: prod-user
+  name: prod
+current-context: dev
+kind: Config
+preferences: {}
+users:
+- name: dev-user
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - token
+      - -i
+      - redacted-url
+      - -r
+      - redacted-arn
+      command: aws-iam-authenticator
+      env: null
+- name: prod-user
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - token
+      - -i
+      - redacted-url
+      - -r
+      - redacted-arn
+      command: aws-iam-authenticator
+      env: null

@@ -138,7 +138,7 @@ class KubeContextLoadTwoContextTests: XCTestCase {
             XCTFail()
         }
         XCTAssertNotNil(config)
-        XCTAssertEqual(config?.Contexts.count, 2, "There is two contexts")
+        XCTAssertEqual(config?.Contexts.count, 2, "There are two contexts")
         XCTAssertEqual(config?.Contexts[0].Name, "kubernetes-admin@kubernetes", "Name of the context is correct")
         XCTAssertEqual(config?.Contexts[0].Context.Cluster, "kubernetes", "Cluster of the context is correct")
         XCTAssertEqual(config?.Contexts[0].Context.AuthInfo, "kubernetes-admin", "User of the context is correct")
@@ -162,5 +162,55 @@ class KubeContextLoadTwoContextTests: XCTestCase {
         }
         XCTAssertEqual(config?.CurrentContext, "other-context", "Current context is correct")
         
+    }
+}
+
+class KubeContextLoadConfigWithNullTests: XCTestCase {
+    let fileManager = FileManager.default
+    
+    var k8s: Kubernetes?
+    var bundle: Bundle!
+    var url: URL!
+    
+    override func setUp() {
+        bundle = Bundle(for: type(of: self))
+        var tempDataUrl: URL?
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            tempDataUrl = documentDirectory.appendingPathComponent("TempData")
+            try fileManager.removeItem(at: tempDataUrl!)
+            let testDataPath = bundle.resourcePath! + "/TestData"
+            try fileManager.copyItem(atPath: testDataPath, toPath: tempDataUrl!.path)
+        } catch {
+            XCTFail()
+        }
+        
+        url = tempDataUrl!.appendingPathComponent("config-with-null.yaml")
+        k8s = Kubernetes()
+        XCTAssertNoThrow(try k8s?.setKubeconfig(configFile: url))
+        XCTAssertNotNil(k8s)
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    }
+    
+    func testKubernetesLoadConfig() {
+        var config: Config?
+        do {
+            config = try k8s?.getConfig()
+        } catch {
+            XCTFail()
+        }
+        XCTAssertNotNil(config)
+        XCTAssertEqual(config?.Contexts.count, 2, "There are two contexts")
+        XCTAssertEqual(config?.Contexts[0].Name, "dev", "Name of the context is correct")
+        XCTAssertEqual(config?.Contexts[0].Context.Cluster, "dev-cluster", "Cluster of the context is correct")
+        XCTAssertEqual(config?.Contexts[0].Context.AuthInfo, "dev-user", "User of the context is correct")
+        XCTAssertNil(config?.Contexts[0].Context.Namespace)
+        
+        XCTAssertEqual(config?.Clusters.count, 2, "There are two clusters")
+        XCTAssertEqual(config?.AuthInfos.count, 2, "There are two users")
     }
 }
