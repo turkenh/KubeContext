@@ -6,8 +6,6 @@
 //  Copyright (c) 2016 Yams. All rights reserved.
 //
 
-import Foundation
-
 // MARK: Node+Sequence
 
 extension Node {
@@ -76,6 +74,16 @@ extension Node.Sequence: Equatable {
         return lhs.nodes == rhs.nodes && lhs.resolvedTag == rhs.resolvedTag
     }
 }
+
+#if swift(>=4.1.50)
+extension Node.Sequence: Hashable {
+    /// :nodoc:
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(nodes)
+        hasher.combine(resolvedTag)
+    }
+}
+#endif
 
 extension Node.Sequence: ExpressibleByArrayLiteral {
     /// :nodoc:

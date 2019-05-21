@@ -1,10 +1,10 @@
 PODS:
   - SwiftyStoreKit (0.14.1)
-  - Yams (1.0.0)
+  - Yams (1.0.2)
 
 DEPENDENCIES:
   - SwiftyStoreKit
-  - Yams
+  - Yams (~> 1.0.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -13,8 +13,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   SwiftyStoreKit: a5cdece4327f3943eb72fa81aebe3aa6684b5eab
-  Yams: a01cdee527b3a82a3e192255b34ad5aacdf96b8c
+  Yams: fcdf51397d30c85f8ac780e917bcf7bdf6bc654b
 
-PODFILE CHECKSUM: 54099b2c26581357952df5ecabfc6e12d705cdb6
+PODFILE CHECKSUM: d95677dbdb75cd2c1572aa5267cf323ccc58a4ea
 
 COCOAPODS: 1.5.3

@@ -6,7 +6,7 @@ target 'KubeContext' do
   use_frameworks!
 
   # Pods for KubeContext
-  pod 'Yams'
+  pod 'Yams', '~> 1.0.2'
   pod 'SwiftyStoreKit'
 
 end

@@ -6,8 +6,6 @@
 //  Copyright (c) 2016 Yams. All rights reserved.
 //
 
-import Foundation
-
 // MARK: Node+Scalar
 
 extension Node {
@@ -87,6 +85,16 @@ extension Node.Scalar: Equatable {
         return lhs.string == rhs.string && lhs.resolvedTag == rhs.resolvedTag
     }
 }
+
+#if swift(>=4.1.50)
+extension Node.Scalar: Hashable {
+    /// :nodoc:
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(string)
+        hasher.combine(resolvedTag)
+    }
+}
+#endif
 
 extension Node.Scalar: TagResolvable {
     static let defaultTagName = Tag.Name.str
