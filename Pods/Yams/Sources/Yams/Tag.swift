@@ -9,7 +9,6 @@
 #if SWIFT_PACKAGE
 import CYaml
 #endif
-import Foundation
 
 /// Tags describe the the _type_ of a Node.
 public final class Tag {
@@ -79,10 +78,17 @@ extension Tag: CustomStringConvertible {
 }
 
 extension Tag: Hashable {
+#if swift(>=4.1.50)
+    /// :nodoc:
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+#else
     /// :nodoc:
     public var hashValue: Int {
         return name.hashValue
     }
+#endif
 
     /// :nodoc:
     public static func == (lhs: Tag, rhs: Tag) -> Bool {
@@ -98,6 +104,7 @@ extension Tag.Name: ExpressibleByStringLiteral {
 }
 
 extension Tag.Name: Hashable {
+#if !swift(>=4.1.50)
     /// :nodoc:
     public var hashValue: Int {
         return rawValue.hashValue
@@ -107,6 +114,7 @@ extension Tag.Name: Hashable {
     public static func == (lhs: Tag.Name, rhs: Tag.Name) -> Bool {
         return lhs.rawValue == rhs.rawValue
     }
+#endif
 }
 
 // http://www.yaml.org/spec/1.2/spec.html#Schema
