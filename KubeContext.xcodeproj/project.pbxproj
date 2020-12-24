@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		8A0A020E21D2BDFB007DF454 /* ui-test-config-cleaned.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */; };
-		8AC4CD8D21D57E79008E1F8F /* libEonilFSEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC4CD8B21D57D0E008E1F8F /* libEonilFSEvents.a */; };
+		8A795B772595240E003EA721 /* EonilFSEvents in Frameworks */ = {isa = PBXBuildFile; productRef = 8A795B762595240E003EA721 /* EonilFSEvents */; };
 		8AD3AE6921F520BC00C81839 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD3AE6821F520BC00C81839 /* StoreKit.framework */; };
 		E422CCAD216E8D0A0008D173 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E422CCAC216E8D0A0008D173 /* Config.swift */; };
 		E439374F21791F8A0077CCF1 /* KubeContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439374E21791F8A0077CCF1 /* KubeContextTests.swift */; };
@@ -33,13 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8AC4CD8A21D57D0E008E1F8F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC4CD8621D57D0E008E1F8F /* EonilFSEvents.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4513D3AD21D52FC50070A7A5;
-			remoteInfo = EonilFSEvents;
-		};
 		E439375121791F8A0077CCF1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E4DE5AD82166AAD800B6959B /* Project object */;
@@ -72,7 +65,6 @@
 /* Begin PBXFileReference section */
 		6E647E203802CA7F9FBE6AB9 /* Pods-KubeContext.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KubeContext.release.xcconfig"; path = "Pods/Target Support Files/Pods-KubeContext/Pods-KubeContext.release.xcconfig"; sourceTree = "<group>"; };
 		8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ui-test-config-cleaned.yaml"; path = "../../../KubeContext/KubeContextUITests/TestData/ui-test-config-cleaned.yaml"; sourceTree = "<group>"; };
-		8AC4CD8621D57D0E008E1F8F /* EonilFSEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EonilFSEvents.xcodeproj; path = ../FSEvents/EonilFSEvents.xcodeproj; sourceTree = "<group>"; };
 		8AD3AE6821F520BC00C81839 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9DBDB0F631DAD622DF0D6157 /* Pods_KubeContext.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KubeContext.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E422CCAC216E8D0A0008D173 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -116,7 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD3AE6921F520BC00C81839 /* StoreKit.framework in Frameworks */,
-				8AC4CD8D21D57E79008E1F8F /* libEonilFSEvents.a in Frameworks */,
+				8A795B772595240E003EA721 /* EonilFSEvents in Frameworks */,
 				E52B02DB6E72B33E719EA6A3 /* Pods_KubeContext.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,14 +123,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8AC4CD8721D57D0E008E1F8F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8AC4CD8B21D57D0E008E1F8F /* libEonilFSEvents.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		E439374D21791F8A0077CCF1 /* KubeContextTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,7 +158,6 @@
 		E4DE5AD72166AAD800B6959B = {
 			isa = PBXGroup;
 			children = (
-				8AC4CD8621D57D0E008E1F8F /* EonilFSEvents.xcodeproj */,
 				E4B0B22A2172857C00AB7817 /* ManageWindow */,
 				E4DE5AE22166AAD800B6959B /* KubeContext */,
 				E439374D21791F8A0077CCF1 /* KubeContextTests */,
@@ -276,6 +259,9 @@
 			dependencies = (
 			);
 			name = KubeContext;
+			packageProductDependencies = (
+				8A795B762595240E003EA721 /* EonilFSEvents */,
+			);
 			productName = KubeContext;
 			productReference = E4DE5AE02166AAD800B6959B /* KubeContext.app */;
 			productType = "com.apple.product-type.application";
@@ -339,14 +325,11 @@
 				Base,
 			);
 			mainGroup = E4DE5AD72166AAD800B6959B;
+			packageReferences = (
+				8A795B752595240E003EA721 /* XCRemoteSwiftPackageReference "FSEvents" */,
+			);
 			productRefGroup = E4DE5AE12166AAD800B6959B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8AC4CD8721D57D0E008E1F8F /* Products */;
-					ProjectRef = 8AC4CD8621D57D0E008E1F8F /* EonilFSEvents.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				E4DE5ADF2166AAD800B6959B /* KubeContext */,
@@ -355,16 +338,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8AC4CD8B21D57D0E008E1F8F /* libEonilFSEvents.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libEonilFSEvents.a;
-			remoteRef = 8AC4CD8A21D57D0E008E1F8F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E439374A21791F8A0077CCF1 /* Resources */ = {
@@ -780,6 +753,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8A795B752595240E003EA721 /* XCRemoteSwiftPackageReference "FSEvents" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:eonil/FSEvents.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8A795B762595240E003EA721 /* EonilFSEvents */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A795B752595240E003EA721 /* XCRemoteSwiftPackageReference "FSEvents" */;
+			productName = EonilFSEvents;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4DE5AD82166AAD800B6959B /* Project object */;
 }
