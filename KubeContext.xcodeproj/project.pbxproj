@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A0A020E21D2BDFB007DF454 /* ui-test-config-cleaned.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */; };
 		8A5DB217259535A1004F6EED /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5DB216259535A1004F6EED /* Yams */; };
 		8A5DB21D259535D3004F6EED /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5DB21C259535D3004F6EED /* SwiftyStoreKit */; };
 		8A795B772595240E003EA721 /* EonilFSEvents in Frameworks */ = {isa = PBXBuildFile; productRef = 8A795B762595240E003EA721 /* EonilFSEvents */; };
@@ -16,10 +15,7 @@
 		E4393759217926C40077CCF1 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = E4393757217922E90077CCF1 /* TestData */; };
 		E471094521695DF70037A107 /* Kubernetes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471094421695DF70037A107 /* Kubernetes.swift */; };
 		E47109472169F3610037A107 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47109462169F3610037A107 /* Utils.swift */; };
-		E4AB87BE217B6B85001C70C9 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = E4393757217922E90077CCF1 /* TestData */; };
-		E4AB87C0217BA1F3001C70C9 /* TestData in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4393757217922E90077CCF1 /* TestData */; };
 		E4AB87C2217BB704001C70C9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB87C1217BB704001C70C9 /* Globals.swift */; };
-		E4AB87C4217BB766001C70C9 /* file-to-import.yaml in Resources */ = {isa = PBXBuildFile; fileRef = E4AB87C3217BB766001C70C9 /* file-to-import.yaml */; };
 		E4B0B223217126CD00AB7817 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B0B222217126CD00AB7817 /* MenuManager.swift */; };
 		E4B0B22C217285AA00AB7817 /* Manage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4B0B22B217285AA00AB7817 /* Manage.storyboard */; };
 		E4B0B22E2172886100AB7817 /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B0B22D2172886100AB7817 /* ManageViewController.swift */; };
@@ -49,21 +45,7 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E4AB87BF217BA1D7001C70C9 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = TestDatam;
-			dstSubfolderSpec = 16;
-			files = (
-				E4AB87C0217BA1F3001C70C9 /* TestData in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ui-test-config-cleaned.yaml"; path = "../../../KubeContext/KubeContextUITests/TestData/ui-test-config-cleaned.yaml"; sourceTree = "<group>"; };
 		E422CCAC216E8D0A0008D173 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E439374C21791F8A0077CCF1 /* KubeContextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KubeContextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E439374E21791F8A0077CCF1 /* KubeContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KubeContextTests.swift; sourceTree = "<group>"; };
@@ -71,9 +53,7 @@
 		E4393757217922E90077CCF1 /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
 		E471094421695DF70037A107 /* Kubernetes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kubernetes.swift; sourceTree = "<group>"; };
 		E47109462169F3610037A107 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		E4AB87BA217B6B68001C70C9 /* ui-test-config.yaml */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ui-test-config.yaml"; sourceTree = "<group>"; };
 		E4AB87C1217BB704001C70C9 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		E4AB87C3217BB766001C70C9 /* file-to-import.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "file-to-import.yaml"; sourceTree = "<group>"; };
 		E4B0B222217126CD00AB7817 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		E4B0B22B217285AA00AB7817 /* Manage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Manage.storyboard; sourceTree = "<group>"; };
 		E4B0B22D2172886100AB7817 /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
@@ -131,16 +111,6 @@
 			path = KubeContextTests;
 			sourceTree = "<group>";
 		};
-		E4AB87B7217B6B68001C70C9 /* TestData */ = {
-			isa = PBXGroup;
-			children = (
-				8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */,
-				E4AB87C3217BB766001C70C9 /* file-to-import.yaml */,
-				E4AB87BA217B6B68001C70C9 /* ui-test-config.yaml */,
-			);
-			path = TestData;
-			sourceTree = "<group>";
-		};
 		E4B0B22A2172857C00AB7817 /* ManageWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,7 +162,6 @@
 		E4F96DC5217B60BB004428F6 /* KubeContextUITests */ = {
 			isa = PBXGroup;
 			children = (
-				E4AB87B7217B6B68001C70C9 /* TestData */,
 				E4F96DC6217B60BB004428F6 /* KubeContextUITests.swift */,
 				E4F96DC8217B60BB004428F6 /* Info.plist */,
 			);
@@ -246,10 +215,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4F96DCB217B60BB004428F6 /* Build configuration list for PBXNativeTarget "KubeContextUITests" */;
 			buildPhases = (
-				E4AB87BF217BA1D7001C70C9 /* CopyFiles */,
 				E4F96DC0217B60BB004428F6 /* Sources */,
 				E4F96DC1217B60BB004428F6 /* Frameworks */,
-				E4F96DC2217B60BB004428F6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -333,16 +300,6 @@
 				E4B0B22C217285AA00AB7817 /* Manage.storyboard in Resources */,
 				E4DE5AE82166AAD900B6959B /* Assets.xcassets in Resources */,
 				E4DE5AEB2166AAD900B6959B /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E4F96DC2217B60BB004428F6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E4AB87C4217BB766001C70C9 /* file-to-import.yaml in Resources */,
-				8A0A020E21D2BDFB007DF454 /* ui-test-config-cleaned.yaml in Resources */,
-				E4AB87BE217B6B85001C70C9 /* TestData in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
