@@ -279,7 +279,7 @@ class KubeContextUITests: XCTestCase {
         let applyButton = contextManagementWindow.buttons["Apply"]
         applyButton.click()
         
-        let expectedContent = try? String(contentsOfFile: "/Users/hasanturken/Workspace/my-repos/KubeContext/KubeContextUITests/TestData/ui-test-config-cleaned.yaml", encoding: .utf8)
+        let expectedContent = try? String(contentsOfFile: "/Users/hasanturken/Workspace/my-repos/KubeContext/KubeContextTests/TestData/ui-test-config-cleaned.yaml", encoding: .utf8)
         
         let currentContent = try? String(contentsOfFile: "/Users/hasanturken/Library/Containers/com.ht.kubecontext/Data/Documents/TempData/ui-test-config.yaml", encoding: .utf8)
         
@@ -429,7 +429,7 @@ class KubeContextUITests: XCTestCase {
         statusItem.click()
         menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems["Select kubeconfig file"]/*[[".statusItems",".menus.menuItems[\"Select kubeconfig file\"]",".menuItems[\"Select kubeconfig file\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.click()
         
-        let origContent = try? String(contentsOfFile: "/Users/hasanturken/Workspace/my-repos/KubeContext/KubeContextUITests/TestData/ui-test-config.yaml", encoding: .utf8)
+        let origContent = try? String(contentsOfFile: "/Users/hasanturken/Workspace/my-repos/KubeContext/KubeContextTests/TestData/ui-test-config.yaml", encoding: .utf8)
         
         let currentContent = try? String(contentsOfFile: "/Users/hasanturken/Library/Containers/com.ht.kubecontext/Data/Documents/TempData/ui-test-config.yaml", encoding: .utf8)
         
