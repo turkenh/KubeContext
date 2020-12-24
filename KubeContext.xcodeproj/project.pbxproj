@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8A0A020E21D2BDFB007DF454 /* ui-test-config-cleaned.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */; };
+		8A5DB217259535A1004F6EED /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5DB216259535A1004F6EED /* Yams */; };
+		8A5DB21D259535D3004F6EED /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5DB21C259535D3004F6EED /* SwiftyStoreKit */; };
 		8A795B772595240E003EA721 /* EonilFSEvents in Frameworks */ = {isa = PBXBuildFile; productRef = 8A795B762595240E003EA721 /* EonilFSEvents */; };
-		8AD3AE6921F520BC00C81839 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD3AE6821F520BC00C81839 /* StoreKit.framework */; };
 		E422CCAD216E8D0A0008D173 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E422CCAC216E8D0A0008D173 /* Config.swift */; };
 		E439374F21791F8A0077CCF1 /* KubeContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439374E21791F8A0077CCF1 /* KubeContextTests.swift */; };
 		E4393759217926C40077CCF1 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = E4393757217922E90077CCF1 /* TestData */; };
@@ -29,7 +30,6 @@
 		E4F96DBB217B3D3E004428F6 /* KubeContextBadFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F96DBA217B3D3E004428F6 /* KubeContextBadFileTests.swift */; };
 		E4F96DBF217B552D004428F6 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F96DBE217B552D004428F6 /* UtilsTests.swift */; };
 		E4F96DC7217B60BB004428F6 /* KubeContextUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F96DC6217B60BB004428F6 /* KubeContextUITests.swift */; };
-		E52B02DB6E72B33E719EA6A3 /* Pods_KubeContext.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DBDB0F631DAD622DF0D6157 /* Pods_KubeContext.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6E647E203802CA7F9FBE6AB9 /* Pods-KubeContext.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KubeContext.release.xcconfig"; path = "Pods/Target Support Files/Pods-KubeContext/Pods-KubeContext.release.xcconfig"; sourceTree = "<group>"; };
 		8A0A020D21D2BDFB007DF454 /* ui-test-config-cleaned.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ui-test-config-cleaned.yaml"; path = "../../../KubeContext/KubeContextUITests/TestData/ui-test-config-cleaned.yaml"; sourceTree = "<group>"; };
-		8AD3AE6821F520BC00C81839 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		9DBDB0F631DAD622DF0D6157 /* Pods_KubeContext.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KubeContext.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E422CCAC216E8D0A0008D173 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E439374C21791F8A0077CCF1 /* KubeContextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KubeContextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E439374E21791F8A0077CCF1 /* KubeContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KubeContextTests.swift; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		E4F96DC4217B60BB004428F6 /* KubeContextUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KubeContextUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F96DC6217B60BB004428F6 /* KubeContextUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KubeContextUITests.swift; sourceTree = "<group>"; };
 		E4F96DC8217B60BB004428F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E62649087C44EE8C0FBE5E58 /* Pods-KubeContext.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KubeContext.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KubeContext/Pods-KubeContext.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +103,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AD3AE6921F520BC00C81839 /* StoreKit.framework in Frameworks */,
+				8A5DB21D259535D3004F6EED /* SwiftyStoreKit in Frameworks */,
+				8A5DB217259535A1004F6EED /* Yams in Frameworks */,
 				8A795B772595240E003EA721 /* EonilFSEvents in Frameworks */,
-				E52B02DB6E72B33E719EA6A3 /* Pods_KubeContext.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,8 +159,6 @@
 				E439374D21791F8A0077CCF1 /* KubeContextTests */,
 				E4F96DC5217B60BB004428F6 /* KubeContextUITests */,
 				E4DE5AE12166AAD800B6959B /* Products */,
-				E69E3543D6CBED77C75F771D /* Pods */,
-				EE5964428F10BB7385B75A69 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,24 +199,6 @@
 			path = KubeContextUITests;
 			sourceTree = "<group>";
 		};
-		E69E3543D6CBED77C75F771D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E62649087C44EE8C0FBE5E58 /* Pods-KubeContext.debug.xcconfig */,
-				6E647E203802CA7F9FBE6AB9 /* Pods-KubeContext.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		EE5964428F10BB7385B75A69 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8AD3AE6821F520BC00C81839 /* StoreKit.framework */,
-				9DBDB0F631DAD622DF0D6157 /* Pods_KubeContext.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,11 +224,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4DE5AF02166AAD900B6959B /* Build configuration list for PBXNativeTarget "KubeContext" */;
 			buildPhases = (
-				F737CDCEDCE68D54DDA65CCB /* [CP] Check Pods Manifest.lock */,
 				E4DE5ADC2166AAD800B6959B /* Sources */,
 				E4DE5ADD2166AAD800B6959B /* Frameworks */,
 				E4DE5ADE2166AAD800B6959B /* Resources */,
-				6C8CF513156D406A7F26275E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,6 +235,8 @@
 			name = KubeContext;
 			packageProductDependencies = (
 				8A795B762595240E003EA721 /* EonilFSEvents */,
+				8A5DB216259535A1004F6EED /* Yams */,
+				8A5DB21C259535D3004F6EED /* SwiftyStoreKit */,
 			);
 			productName = KubeContext;
 			productReference = E4DE5AE02166AAD800B6959B /* KubeContext.app */;
@@ -327,6 +303,8 @@
 			mainGroup = E4DE5AD72166AAD800B6959B;
 			packageReferences = (
 				8A795B752595240E003EA721 /* XCRemoteSwiftPackageReference "FSEvents" */,
+				8A5DB215259535A1004F6EED /* XCRemoteSwiftPackageReference "Yams" */,
+				8A5DB21B259535D3004F6EED /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
 			);
 			productRefGroup = E4DE5AE12166AAD800B6959B /* Products */;
 			projectDirPath = "";
@@ -369,47 +347,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6C8CF513156D406A7F26275E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KubeContext/Pods-KubeContext-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Yams/Yams.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Yams.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KubeContext/Pods-KubeContext-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F737CDCEDCE68D54DDA65CCB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KubeContext-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E439374821791F8A0077CCF1 /* Sources */ = {
@@ -563,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -618,7 +555,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -629,7 +566,6 @@
 		};
 		E4DE5AF12166AAD900B6959B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E62649087C44EE8C0FBE5E58 /* Pods-KubeContext.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KubeContext/KubeContext.entitlements;
@@ -653,7 +589,6 @@
 		};
 		E4DE5AF22166AAD900B6959B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E647E203802CA7F9FBE6AB9 /* Pods-KubeContext.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KubeContext/KubeContext.entitlements;
@@ -755,6 +690,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8A5DB215259535A1004F6EED /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:jpsim/Yams.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.3;
+			};
+		};
+		8A5DB21B259535D3004F6EED /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:bizz84/SwiftyStoreKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.1;
+			};
+		};
 		8A795B752595240E003EA721 /* XCRemoteSwiftPackageReference "FSEvents" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:eonil/FSEvents.git";
@@ -766,6 +717,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8A5DB216259535A1004F6EED /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A5DB215259535A1004F6EED /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+		8A5DB21C259535D3004F6EED /* SwiftyStoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A5DB21B259535D3004F6EED /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
+			productName = SwiftyStoreKit;
+		};
 		8A795B762595240E003EA721 /* EonilFSEvents */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8A795B752595240E003EA721 /* XCRemoteSwiftPackageReference "FSEvents" */;
