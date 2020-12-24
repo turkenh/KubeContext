@@ -13,7 +13,7 @@ struct Config: Codable {
     var APIVersion: String?
     var Clusters: [ClusterElement]
     var Contexts: [ContextElement]
-    var CurrentContext: String
+    var CurrentContext: String?
     var Extensions: [String:String]?
     var Kind: String?
     var Preferences: Preferences?

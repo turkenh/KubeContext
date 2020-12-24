@@ -145,7 +145,7 @@ class MenuManager: NSObject, NSMenuDelegate {
         
         let currentContextTextItem = NSMenuItem(title: "", action: #selector(logClick(_:)), keyEquivalent: "")
         currentContextTextItem.target = self
-        let currentContextText = NSAttributedString.init(string: currentContext.wrap(limit: 32), attributes: [NSAttributedString.Key.paragraphStyle: centerParagraphStyle])
+        let currentContextText = NSAttributedString.init(string: currentContext?.wrap(limit: 32) ?? "", attributes: [NSAttributedString.Key.paragraphStyle: centerParagraphStyle])
         currentContextTextItem.attributedTitle = currentContextText
         menu.addItem(currentContextTextItem)
         

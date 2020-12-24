@@ -28,7 +28,7 @@ let contextChangedCallback: (EonilFSEventsEvent) -> () = {_ in
 }
 
 func showContextName() throws {
-    let currContext: String = try (k8s.getConfig()?.CurrentContext)!
+    let currContext: String = try (k8s.getConfig()?.CurrentContext) ?? ""
     if k8s.shouldShowContextName {
         statusBarButton.title = currContext.truncated(limit: 20, position: String.TruncationPosition.middle, leader: "...")
     } else {
