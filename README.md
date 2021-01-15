@@ -12,7 +12,7 @@ A small menu bar app for managing [Kubernetes](https://kubernetes.io) [contexts]
 
 - Install from Mac [App Store](https://itunes.apple.com/us/app/kubecontext/id1438838068?ls=1&mt=12)
 
-- Install using [Homebrew](https://brew.sh/) package manager: `brew cask install kubecontext`
+- Install using [Homebrew](https://brew.sh/) package manager: `brew install --cask kubecontext`
 
 - Download from [Releases](https://github.com/turkenh/KubeContext/releases)
 
