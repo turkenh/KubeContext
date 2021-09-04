@@ -63,7 +63,7 @@ struct ClusterElement: Codable {
 struct Cluster: Codable {
     var CertificateAuthority: String?
     var CertificateAuthorityData: String?
-    var Extensions: [String:String]?
+    var Extensions: [ExtensionElement]?
     var InsecureSkipTLSVerify: Bool?
     var Server: String
     
@@ -132,9 +132,31 @@ struct ContextElement: Codable {
     }
 }
 
+struct ExtensionElement: Codable {
+    var Extension: Extension
+    var Name: String
+    
+    private enum CodingKeys : String, CodingKey {
+        case Extension="extension"
+        case Name="name"
+    }
+}
+
+struct Extension: Codable {
+    var LastUpdate: String?
+    var Version: String?
+    var Provider: String?
+    
+    private enum CodingKeys : String, CodingKey {
+        case LastUpdate="last-update"
+        case Version="version"
+        case Provider="provider"
+    }
+}
+
 struct Context: Codable {
     var Cluster: String
-    var Extensions: [String:String]?
+    var Extensions: [ExtensionElement]?
     var Namespace: String?
     var AuthInfo: String
     

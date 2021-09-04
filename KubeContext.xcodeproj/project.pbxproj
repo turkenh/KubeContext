@@ -10,6 +10,7 @@
 		8A5DB217259535A1004F6EED /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5DB216259535A1004F6EED /* Yams */; };
 		8A5DB21D259535D3004F6EED /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5DB21C259535D3004F6EED /* SwiftyStoreKit */; };
 		8A795B772595240E003EA721 /* EonilFSEvents in Frameworks */ = {isa = PBXBuildFile; productRef = 8A795B762595240E003EA721 /* EonilFSEvents */; };
+		A1EF413726E3C811004BA0C2 /* KubeContextLoadMiniKubeContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF413626E3C811004BA0C2 /* KubeContextLoadMiniKubeContextTests.swift */; };
 		E422CCAD216E8D0A0008D173 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E422CCAC216E8D0A0008D173 /* Config.swift */; };
 		E439374F21791F8A0077CCF1 /* KubeContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439374E21791F8A0077CCF1 /* KubeContextTests.swift */; };
 		E4393759217926C40077CCF1 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = E4393757217922E90077CCF1 /* TestData */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1EF413626E3C811004BA0C2 /* KubeContextLoadMiniKubeContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KubeContextLoadMiniKubeContextTests.swift; sourceTree = "<group>"; };
 		E422CCAC216E8D0A0008D173 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E439374C21791F8A0077CCF1 /* KubeContextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KubeContextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E439374E21791F8A0077CCF1 /* KubeContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KubeContextTests.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				E4F96DBA217B3D3E004428F6 /* KubeContextBadFileTests.swift */,
 				E439375021791F8A0077CCF1 /* Info.plist */,
 				E4F96DBE217B552D004428F6 /* UtilsTests.swift */,
+				A1EF413626E3C811004BA0C2 /* KubeContextLoadMiniKubeContextTests.swift */,
 			);
 			path = KubeContextTests;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1EF413726E3C811004BA0C2 /* KubeContextLoadMiniKubeContextTests.swift in Sources */,
 				E4F96DBB217B3D3E004428F6 /* KubeContextBadFileTests.swift in Sources */,
 				E439374F21791F8A0077CCF1 /* KubeContextTests.swift in Sources */,
 				E4F96DBF217B552D004428F6 /* UtilsTests.swift in Sources */,
@@ -538,7 +542,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ht.kubecontext;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -563,7 +567,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ht.kubecontext;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
