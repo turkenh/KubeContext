@@ -684,6 +684,8 @@ This will enable you to upgrade to the full version and use all features and fun
                         case .cloudServiceRevoked: NSLog("User has revoked permission to use this cloud service")
                         default: NSLog((error as NSError).localizedDescription)
                         }
+                    case .deferred(purchase: let purchase):
+                        NSLog("Purchase Failed: \(purchase.productId)")
                     }
                 }
             } else if returnCode == NSApplication.ModalResponse(rawValue: 1002) {
