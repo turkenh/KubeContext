@@ -1,0 +1,30 @@
+
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /Users/user/.teleport/ca.crt
+    extensions:
+    - extension:
+        last-update: Sat, 04 Sep 2021 10:04:54 CDT
+        provider: teleport.sigs.k8s.io
+        version: v1.23.0
+      name: cluster_info
+    server: https://1.2.3.4:5678
+  name: teleport
+contexts:
+- context:
+    cluster: teleport
+    extensions:
+    - extension: sa-west1
+      name: teleport.kube.name
+    namespace: jim
+    user: teleport
+  name: teleport
+current-context: teleport
+kind: Config
+preferences: {}
+users:
+- name: teleport
+  user:
+    client-certificate: /Users/user/.teleport/profiles/teleport/client.crt
+    client-key: /Users/user/.teleport/profiles/teleport/client.key

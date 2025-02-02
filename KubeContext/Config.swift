@@ -3,7 +3,7 @@
 //  KubeContext
 //
 //  Created by Turken, Hasan on 10.10.18.
-//  Copyright © 2018 Turken, Hasan. All rights reserved.
+//  Copyright 2018 Turken, Hasan. All rights reserved.
 //
 
 import Foundation
@@ -14,7 +14,7 @@ struct Config: Codable {
     var Clusters: [ClusterElement]
     var Contexts: [ContextElement]
     var CurrentContext: String?
-    var Extensions: [String:String]?
+    var Extensions: [NamedExtension]?
     var Kind: String?
     var Preferences: Preferences?
     var AuthInfos: [AuthInfoElement]
@@ -42,7 +42,7 @@ struct Config: Codable {
 
 struct Preferences: Codable {
     var Colors: Bool?
-    var Extensions: [String:String]?
+    var Extensions: [NamedExtension]?
     
     private enum CodingKeys : String, CodingKey {
         case Colors="colors"
@@ -63,7 +63,7 @@ struct ClusterElement: Codable {
 struct Cluster: Codable {
     var CertificateAuthority: String?
     var CertificateAuthorityData: String?
-    var Extensions: [ExtensionElement]?
+    var Extensions: [NamedExtension]?
     var InsecureSkipTLSVerify: Bool?
     var Server: String
     
@@ -96,7 +96,7 @@ struct AuthInfo: Codable {
     var ClientKey: String?
     var ClientKeyData: String?
     var Exec: ExecConfig?
-    var Extensions: [String:String]?
+    var Extensions: [NamedExtension]?
     var Token: String?
     var TokenFile: String?
     var Password: String?
@@ -132,8 +132,58 @@ struct ContextElement: Codable {
     }
 }
 
-struct ExtensionElement: Codable {
-    var Extension: Extension
+struct AnyCodable: Codable {
+    let value: Any
+    
+    init(_ value: Any) {
+        self.value = value
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let value = try? container.decode(String.self) {
+            self.value = value
+        } else if let value = try? container.decode(Int.self) {
+            self.value = value
+        } else if let value = try? container.decode(Double.self) {
+            self.value = value
+        } else if let value = try? container.decode(Bool.self) {
+            self.value = value
+        } else if let value = try? container.decode([String: AnyCodable].self) {
+            self.value = value
+        } else if let value = try? container.decode([AnyCodable].self) {
+            self.value = value
+        } else {
+            self.value = NSNull()
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch value {
+        case let value as String:
+            try container.encode(value)
+        case let value as Int:
+            try container.encode(value)
+        case let value as Double:
+            try container.encode(value)
+        case let value as Bool:
+            try container.encode(value)
+        case let value as [String: AnyCodable]:
+            try container.encode(value)
+        case let value as [AnyCodable]:
+            try container.encode(value)
+        case is NSNull:
+            try container.encodeNil()
+        default:
+            let context = EncodingError.Context(codingPath: container.codingPath, debugDescription: "Invalid value type")
+            throw EncodingError.invalidValue(value, context)
+        }
+    }
+}
+
+struct NamedExtension: Codable {
+    var Extension: AnyCodable?
     var Name: String
     
     private enum CodingKeys : String, CodingKey {
@@ -142,21 +192,9 @@ struct ExtensionElement: Codable {
     }
 }
 
-struct Extension: Codable {
-    var LastUpdate: String?
-    var Version: String?
-    var Provider: String?
-    
-    private enum CodingKeys : String, CodingKey {
-        case LastUpdate="last-update"
-        case Version="version"
-        case Provider="provider"
-    }
-}
-
 struct Context: Codable {
     var Cluster: String
-    var Extensions: [ExtensionElement]?
+    var Extensions: [NamedExtension]?
     var Namespace: String?
     var AuthInfo: String
     
