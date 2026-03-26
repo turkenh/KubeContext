@@ -222,12 +222,16 @@ struct ExecConfig: Codable {
     var Args: [String]?
     var Command: String
     var Env: [ExecEnvVar]?
-    
+    var InteractiveMode: String?
+    var ProvideClusterInfo: Bool?
+
     private enum CodingKeys : String, CodingKey {
         case APIVersion="apiVersion"
         case Args="args"
         case Command="command"
         case Env="env"
+        case InteractiveMode="interactiveMode"
+        case ProvideClusterInfo="provideClusterInfo"
     }
 }
 
